@@ -1,0 +1,20 @@
+.classform{
+    width: 90%;
+    height: 10vh;
+    margin: 0 auto;
+}
+.classform .headerTableform h1{
+    font-style: normal;
+    font-weight: 200;
+}
+.cardClass{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.classbtn{
+    margin: 50px 0;
+    width: 90%;
+    display: flex;
+    justify-content: end;
+}

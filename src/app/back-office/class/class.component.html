@@ -1,0 +1,12 @@
+<div class="class">
+    <!-- Boucle sur les classes récupérées et affiche chaque classe dans une carte -->
+    <div class="cardClass" *ngFor="let class of classes">
+        <mat-card class="example-card" appearance="outlined">
+            <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title>{{ class.name }}</mat-card-title>
+                <mat-card-subtitle>{{ class.content }}</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+    </div>
+</div>

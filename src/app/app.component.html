@@ -1,0 +1,22 @@
+<!-- <div class="api-content">
+  <h2>Données de l'API :</h2>
+  <div *ngIf="data; else loading">
+    <pre>{{ data | json }}</pre> Affiche les données sous forme JSON 
+  </div>
+  <ng-template #loading>
+    <p *ngIf="!errorMessage">Chargement en cours...</p>
+  </ng-template>
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p> 
+</div> -->
+<nav class="navBar">
+  <div class="logo"></div>
+  <div class="menu">
+      <nav>
+          <a routerLink="/back-office/etudiant">Etudiant</a>
+          <a routerLink="/back-office/class">Classe</a>
+      </nav>
+  </div>
+</nav>
+<hr>
+<router-outlet></router-outlet>
+

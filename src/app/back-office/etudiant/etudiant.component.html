@@ -1,0 +1,76 @@
+<div class="etudiant">
+    <div class="headerTable">
+      <h1>Liste des étudiants</h1>
+      <button mat-stroked-button color="primary" class="btnAdd" [routerLink]="['/back-office/etudiant/addEtudiant']">Ajouter</button>
+    </div>
+    <hr>
+  
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" class="full-width">
+        
+        <!-- Colonne N° Matricule -->
+        <ng-container matColumnDef="matricule">
+          <th mat-header-cell *matHeaderCellDef> N° Matricule </th>
+          <td mat-cell *matCellDef="let element"> {{element.matricule}} </td>
+        </ng-container>
+  
+        <!-- Colonne Nom -->
+        <ng-container matColumnDef="nom">
+          <th mat-header-cell *matHeaderCellDef> Nom </th>
+          <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
+        </ng-container>
+  
+        <!-- Colonne Prénom -->
+        <ng-container matColumnDef="prenom">
+          <th mat-header-cell *matHeaderCellDef> Prénom </th>
+          <td mat-cell *matCellDef="let element"> {{element.prenom}} </td>
+        </ng-container>
+  
+        <!-- Colonne Âge -->
+        <ng-container matColumnDef="age">
+          <th mat-header-cell *matHeaderCellDef> Âge </th>
+          <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+        </ng-container>
+  
+        <!-- Colonne Classe -->
+        <ng-container matColumnDef="classe">
+          <th mat-header-cell *matHeaderCellDef> Classe </th>
+          <td mat-cell *matCellDef="let element"> {{element.classe}} </td>
+        </ng-container>
+
+        <!-- Colonne Classe -->
+        <ng-container matColumnDef="annee">
+          <th mat-header-cell *matHeaderCellDef> Annee </th>
+          <td mat-cell *matCellDef="let element"> {{element.annee}} </td>
+        </ng-container>
+        
+  
+        <!-- Colonne Actions (show/modifier/supprimer) -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button>
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon [routerLink]="['/back-office/etudiant/formProfil']">edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteElement(element.matricule)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  
+      <!-- Paginator -->
+      <mat-paginator
+        [pageSizeOptions]="[10, 20]"
+        showFirstLastButtons
+      ></mat-paginator>
+    </div>
+  </div>
+  
+  <router-outlet></router-outlet>

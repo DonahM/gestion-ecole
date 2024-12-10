@@ -1,0 +1,39 @@
+.etudiant{
+    width: 90%;
+    height: 10vh;
+    margin: 0 auto;
+}
+.etudiant h1{
+    font-style: normal;
+    font-weight: 200;
+}
+.headerTable{
+    display: flex;
+    justify-content: space-between;
+}
+hr{
+    margin: 0;
+}
+.profil{
+    width: 75px;
+    height: 75px;
+    margin: 0;
+    padding: 0;
+    border-radius: 100px;
+    background-image: url('../img/0f512620de6babe03d60f1bfe4b6aff4.png');
+    background-size: 75px;
+    background-repeat: no-repeat;
+}
+.cardClass{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.classbtn{
+    margin: 50px 50px;
+    display: flex;
+    justify-content: end;
+}
+.cardform{
+    margin: 0 50px;
+}
