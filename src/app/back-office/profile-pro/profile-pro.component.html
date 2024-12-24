@@ -1,0 +1,18 @@
+<div class="prof-details" *ngIf="prof; else errorTemplate">
+  <h1>Détails du Professeur</h1>
+  <div>
+    <p><strong>ID :</strong> {{ prof.idProf }}</p>
+    <p><strong>Nom :</strong> {{ prof.name }}</p>
+    <p><strong>Prénom :</strong> {{ prof.surname }}</p>
+    <p><strong>Matière :</strong> {{ prof.matiere }}</p>
+    <ng-container *ngIf="prof.salaires && prof.salaires.length > 0">
+      <p><strong>Salaires :</strong> {{ prof.salaires.join(', ') }}</p>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #errorTemplate>
+  <div class="error">
+    <p>{{ errorMessage }}</p>
+  </div>
+</ng-template>

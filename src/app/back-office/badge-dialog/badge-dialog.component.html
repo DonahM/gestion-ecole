@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Badge</h1>
+
+<div mat-dialog-content id="student-info">
+  <p><strong>Nom:</strong> {{ student.name }} {{ student.surname }}</p>
+  <p><strong>Date de naissance:</strong> {{ student.date_naiss }}</p>
+  <p><strong>Lieu de naissance:</strong> {{ student.lieu_naiss }}</p>
+  <p><strong>Téléphone:</strong> {{ student.tel }}</p>
+  <p><strong>Adresse:</strong> {{ student.adress_edt }}</p>
+  <p><strong>Père:</strong> {{ student.father }} ({{ student.jobs_f }})</p>
+  <p><strong>Mère:</strong> {{ student.mother }} ({{ student.jobs_m }})</p>
+  <p><strong>Tuteur:</strong> {{ student.titeur }} ({{ student.tel_titeur }})</p>
+  <p><strong>Ancienne école:</strong> {{ student.ecole_anter }}</p>
+  <p><strong>Année:</strong> {{ student.annee }}</p>
+</div>
+
+<mat-dialog-actions>
+  <button mat-button (click)="exportToPDF()">Exporter en PDF</button>
+  <button mat-button (click)="exportToJPG()">Exporter en JPG</button>
+  <button mat-button mat-dialog-close>Fermer</button>
+</mat-dialog-actions>

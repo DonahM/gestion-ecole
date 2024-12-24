@@ -1,0 +1,19 @@
+.prof{
+    width: 90%;
+    height: 10vh;
+    margin: 0 auto;
+}
+.prof h1{
+    font-style: normal;
+    font-weight: 200;
+}
+.headerTable{
+    display: flex;
+    justify-content: space-between;
+}
+.btnAdd{
+    margin-top: 30px;
+}
+table {
+    width: 100%;
+}

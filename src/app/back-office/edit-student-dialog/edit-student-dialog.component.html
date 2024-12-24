@@ -1,0 +1,19 @@
+<form #editForm="ngForm" (ngSubmit)="onSave()">
+  <mat-form-field appearance="fill">
+    <mat-label>{{ data.field | titlecase }}</mat-label>
+    <input
+      matInput
+      [(ngModel)]="data.value"
+      name="valueField"
+      required
+      #valueField="ngModel"
+    />
+    <mat-error *ngIf="valueField.invalid && valueField.touched">
+      Ce champ est requis
+    </mat-error>
+  </mat-form-field>
+  <div class="dialog-actions">
+    <button mat-button type="button" (click)="onNoClick()">Annuler</button>
+    <button mat-button color="primary" type="submit" [disabled]="editForm.invalid">Enregistrer</button>
+  </div>
+</form>

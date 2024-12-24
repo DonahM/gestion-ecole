@@ -1,55 +1,313 @@
+<form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
 <div class="classform">
-    <div class="headerTableform">
-      <h1>Ajouter un(e) étudiant(e)</h1>
-    </div>
-    <hr />
-    <div class="cardClass">
-        <div class="cardform">
-            <h3>N° Matricule :</h3>
-            <mat-form-field>
-                <input matInput>
-            </mat-form-field>
-        </div>
-
-        <div class="cardform">
-            <h3>Nom :</h3>
-            <mat-form-field>
-                <input matInput>
-            </mat-form-field>
-        </div>
-
-        <div class="cardform">
-            <h3>Prénom :</h3>
-            <mat-form-field>
-                <input matInput>
-            </mat-form-field>
-        </div>
-
-        <div class="cardform">
-            <h3>Âge</h3>
-            <mat-form-field>
-                <input matInput>
-            </mat-form-field>
-        </div>
-        
-        <div class="cardform">
-            <h3>Niveau :</h3>
-            <mat-form-field>
-                <mat-label>Classe</mat-label>
-                <mat-select>
-                    <mat-option value="6ème">6ème</mat-option>
-                    <mat-option value="5ème">5ème</mat-option>
-                    <mat-option value="4ème">4ème</mat-option>
-                    <mat-option value="3ème">3ème</mat-option>
-                    <mat-option value="2nd">2nd</mat-option>
-                    <mat-option value="1ère">1ère</mat-option>
-                    <mat-option value="Terminale">Terminale</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-    </div>
-    <div class="classbtn">
-        <button mat-flat-button>Ajouter</button>
-    </div>
+  <div class="headerTableform">
+    <h1>Ajouter un(e) étudiant(e)</h1>
+    <button mat-flat-button color="primary" type="submit" [disabled]="studentForm.invalid">
+      Envoyer
+    </button>
   </div>
+  <hr />
   
+    <div class="cardClass">
+
+      <div class="edt">
+        <h4>Etudiant(e)s</h4>
+        <!-- Nom -->
+         <table>
+          <tr>
+            <td>
+              <p>Nom :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="Nom" formControlName="name" />
+              </mat-form-field>
+              <div *ngIf="studentForm.get('name')?.invalid && studentForm.get('name')?.touched" class="error">
+                Nom requis.
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Prénom :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="Prénom" formControlName="surname" />
+              </mat-form-field>
+              <div *ngIf="studentForm.get('surname')?.invalid && studentForm.get('surname')?.touched" class="error">
+                Prénom requis.
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Date de naissance :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput type="date" formControlName="date_naiss" />
+              </mat-form-field>
+              <div *ngIf="studentForm.get('date_naiss')?.invalid && studentForm.get('date_naiss')?.touched" class="error">
+                Date de naissance requise.
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Lieu de naissance :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="Lieu de naissance" formControlName="lieu_naiss" />
+              </mat-form-field>
+              <div *ngIf="studentForm.get('lieu_naiss')?.invalid && studentForm.get('lieu_naiss')?.touched" class="error">
+                Lieu de naissance requis.
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Sexe :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <mat-select formControlName="sexe">
+                  <mat-option value="Masculin">Masculin</mat-option>
+                  <mat-option value="Féminin">Féminin</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div *ngIf="studentForm.get('sexe')?.invalid && studentForm.get('sexe')?.touched" class="error">
+                Sexe requis.
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Téléphone :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="Téléphone" formControlName="tel" />
+              </mat-form-field>
+              <div *ngIf="studentForm.get('tel')?.invalid && studentForm.get('tel')?.touched" class="error">
+                Téléphone requis.
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Adresse :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="Adresse" formControlName="adress_edt" />
+              </mat-form-field>
+              <div *ngIf="studentForm.get('adress_edt')?.invalid && studentForm.get('adress_edt')?.touched" class="error">
+                Adresse requise.
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>École antérieure :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="École précédente" formControlName="ecole_anter" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Image :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="URL de l'image" formControlName="image" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Année scolaire :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <mat-label>Année scolaire</mat-label>
+                <mat-select formControlName="idSchool">
+                  <mat-option *ngFor="let year of yearsSchools" [value]="year.idSchool">
+                    {{ year.annee_scolaire }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>                                         
+              <div *ngIf="studentForm.get('idSchool')?.invalid && studentForm.get('idSchool')?.touched" class="error">
+                Année scolaire requise.
+              </div>
+            </td>
+          </tr>
+          
+          <tr>
+            <td>
+              <p>Classe :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <mat-select formControlName="idCls">
+                  <mat-option *ngFor="let classe of classes" [value]="classe.idCls">
+                    {{ classe.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div *ngIf="studentForm.get('idCls')?.invalid && studentForm.get('idCls')?.touched" class="error">
+                Classe requise.
+              </div>
+            </td>
+          </tr>
+         </table>
+      </div>
+
+      <!-- Informations des parents -->
+      <div class="parent">
+        <h4> Parent</h4>
+        <table>
+          <tr>
+            <td>
+              <p>Père :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="Nom du père" formControlName="father" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Profession :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="Profession" formControlName="jobs_f" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Mère :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="Nom de la mère" formControlName="mother" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Profession :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="Profession" formControlName="jobs_m" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Téléphone des parents :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="Téléphone" formControlName="tel_parent" />
+              </mat-form-field>
+              <div *ngIf="studentForm.get('tel_parent')?.invalid && studentForm.get('tel_parent')?.touched" class="error">
+                Téléphone des parents requis.
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Adresse des parents :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="Adresse" formControlName="adresse_parent" />
+              </mat-form-field>
+              <div *ngIf="studentForm.get('adresse_parent')?.invalid && studentForm.get('adresse_parent')?.touched"
+                class="error">
+                Adresse des parents requise.
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      
+      <!-- Tuteur -->
+      <div class="tuteur">
+        <h4>   Tuteur</h4>
+        <table>
+          <tr>
+            <td>
+              <p>Tuteur :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="Nom du tuteur" formControlName="titeur" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Téléphone :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="Téléphone" formControlName="tel_titeur" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Adresse :</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="Adresse" formControlName="adress_titeur" />
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+
+      <div class="password-section">
+        <h4> Mot de passe </h4>
+        <table>
+          <tr>
+            <td><p>Mot de passe :</p></td>
+            <td>
+              <mat-form-field>
+                <input matInput type="password" placeholder="Mot de passe" formControlName="password" />
+                <mat-error *ngIf="studentForm.get('password')?.hasError('required')">Mot de passe requis.</mat-error>
+                <mat-error *ngIf="studentForm.get('password')?.hasError('minlength')">Le mot de passe doit comporter au moins 6 caractères.</mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td><p>Confirmer le mot de passe :</p></td>
+            <td>
+              <mat-form-field>
+                <input matInput type="password" placeholder="Confirmer le mot de passe" formControlName="confirmPassword" />
+                <mat-error *ngIf="studentForm.hasError('passwordsMismatch')">Les mots de passe ne correspondent pas.</mat-error>
+                <mat-error *ngIf="studentForm.get('confirmPassword')?.hasError('required')">Confirmation du mot de passe requise.</mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+
+    </div>
+    
+  
+</div>
+</form>

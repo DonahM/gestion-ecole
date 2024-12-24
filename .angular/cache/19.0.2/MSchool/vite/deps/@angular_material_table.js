@@ -7,16 +7,16 @@ import {
   _VIEW_REPEATER_STRATEGY,
   _ViewRepeaterOperation,
   isDataSource
-} from "./chunk-QZM4EE5W.js";
+} from "./chunk-KQNDYRCP.js";
 import {
   Directionality,
   MatCommonModule,
   Platform,
   _isNumberValue
-} from "./chunk-ZQFRGHMX.js";
+} from "./chunk-775MZNTU.js";
 import {
   DOCUMENT
-} from "./chunk-SHC2HPYS.js";
+} from "./chunk-FPJVA46U.js";
 import {
   BehaviorSubject,
   ChangeDetectionStrategy,
@@ -80,7 +80,8 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate1,
   ɵɵviewQuery
-} from "./chunk-KXLUN6YT.js";
+} from "./chunk-4CZZ4OI4.js";
+import "./chunk-TXDUYLVM.js";
 
 // node_modules/@angular/cdk/fesm2022/table.mjs
 var _c0 = [[["caption"]], [["colgroup"], ["col"]], "*"];

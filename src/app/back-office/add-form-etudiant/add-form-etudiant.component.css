@@ -9,14 +9,33 @@
 }
 .cardClass{
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-.classbtn{
-    margin: 50px 50px;
-    display: flex;
-    justify-content: end;
+    justify-content: space-around;
 }
 .cardform{
     margin: 0 50px;
+    display: flex;
+    justify-content: space-between;
 }
+.imgs{
+    width: 50%;
+    height: 70vh;
+    background-image: url('../img/333369.jpg');
+    background-size: 100% 100%;
+}
+.headerTableform{
+    display: flex;
+    justify-content: space-between;
+}
+button{
+    margin-top: 30px;
+}
+
+/* .edt{
+    background-color: red;
+}
+.parent{
+    background-color: green;
+}
+.tuteur{
+    background-color: aqua;
+} */

@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>Ajouter un écologie</h2>
+<form [formGroup]="ecolageForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Mois</mat-label>
+      <input matInput formControlName="mois" />
+      <mat-error *ngIf="ecolageForm.get('mois')?.hasError('required')">
+        Le mois est requis.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Valeur (Ariary)</mat-label>
+      <input matInput formControlName="valeur" type="number" />
+      <mat-error *ngIf="ecolageForm.get('valeur')?.hasError('required')">
+        La valeur est requise.
+      </mat-error>
+      <mat-error *ngIf="ecolageForm.get('valeur')?.hasError('min')">
+        La valeur doit être supérieure à 0.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- <mat-form-field>
+      <mat-label>Statut</mat-label>
+      <input matInput formControlName="statut" />
+      <mat-error *ngIf="ecolageForm.get('statut')?.hasError('required')">
+        Le statut est requis.
+      </mat-error>
+    </mat-form-field> -->
+
+    <mat-form-field>
+        <mat-label>Statut</mat-label>
+        <mat-select formControlName="statut">
+          <mat-option value="Payé">Payer</mat-option>
+          <!-- <mat-option value="Non Payé">Non Payé</mat-option> -->
+        </mat-select>
+        <mat-error *ngIf="ecolageForm.get('statut')?.hasError('required')">
+          Le statut est requis.
+        </mat-error>
+      </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input matInput formControlName="date" type="date" />
+      <mat-error *ngIf="ecolageForm.get('date')?.hasError('required')">
+        La date est requise.
+      </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Annuler</button>
+    <button mat-button [mat-dialog-close]="true" type="submit" [disabled]="ecolageForm.invalid">Ajouter</button>
+  </mat-dialog-actions>
+</form>
