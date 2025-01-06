@@ -16,6 +16,19 @@
          <table>
           <tr>
             <td>
+              <p>Numero matricule:</p>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="N° matricule" formControlName="matricule" />
+              </mat-form-field>
+              <div *ngIf="studentForm.get('matricule')?.invalid && studentForm.get('matricule')?.touched" class="error">
+                N° matricule requis.
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
               <p>Nom :</p>
             </td>
             <td>

@@ -181,6 +181,7 @@ export class ProfilEtudiantComponent implements OnInit {
 }
 
 export interface Student {
+matricule: any;
   idEdt: number;
   name: string;
   surname: string;

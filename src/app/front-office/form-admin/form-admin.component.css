@@ -1,50 +1,109 @@
-.body{
+.body {
     margin: 0;
     padding: 5vh 0;
     width: 100%;
     height: 90vh;
     background-image: url(../../back-office/img/background-gradient-lights.jpg);
     background-size: cover;
+    background-position: center;
 }
-.body h1{
+
+.body h1 {
     text-align: center;
-    font-size: 50px;
+    font-size: 4vw; /* Utilisation de unités relatives pour une taille de police adaptative */
     color: rgb(255, 255, 255);
 }
-.connection{
+
+.connection {
     width: 100%;
-    height: 20vh;
+    height: auto;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap; /* Ajoute de la flexibilité sur les petits écrans */
+    gap: 1rem; /* Espacement entre les boutons */
 }
-.btnl{
-    width: 40%;
+
+.btnl {
+    width: 90%; /* Taille plus adaptée pour les petits écrans */
+    max-width: 400px;
     height: 10vh;
-    font-size: 20px;
+    font-size: 1.5rem;
 }
-.formulaire{
+
+.formulaire {
     display: flex;
+    flex-direction: column; /* Alignement vertical sur les écrans étroits */
     justify-content: center;
-    margin: 5vh 35vh;
+    margin: 2vh 5vw;
     padding: 5vh;
+    margin-top: 20vh;
     background-color: rgba(197, 219, 240, 0.199);
     border-top-left-radius: 100px;
     border-bottom-right-radius: 100px;
 }
-.name{
-    font-size: 40px;
+
+.name {
+    font-size: 2.5rem;
     color: bisque;
 }
-input{
-    width: 50vh;
-    background-color: rgba(240, 255, 255, 0);
-    font-size: 40px;
-    outline: 0;
-    border-top: none;
-    border-left: none;
-    border-right: none;
+
+input {
+    width: 110%; /* Adapte la largeur pour être relative au conteneur parent */
+    max-width: 110%; /* Utilisation de 100% pour s'adapter à différentes tailles */
+    background-color: transparent;
+    font-size: 1.2rem;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid white;
     color: white;
 }
-td{
-    padding: 5vh;
+
+td {
+    padding: 2vh 1vw;
+}
+
+/* Media Queries pour des écrans de différentes tailles */
+@media (max-width: 768px) {
+    .body h1 {
+        font-size: 6vw;
+    }
+
+    .connection {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btnl {
+        width: 80%;
+        font-size: 1.2rem;
+    }
+
+    .formulaire {
+        margin: 2vh 5vw;
+        padding: 3vh;
+        margin-top: 20vh;
+    }
+
+    input {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .body h1 {
+        font-size: 7vw;
+    }
+
+    .btnl {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    .name {
+        font-size: 2rem;
+    }
+
+    input {
+        font-size: 0.9rem;
+    }
 }

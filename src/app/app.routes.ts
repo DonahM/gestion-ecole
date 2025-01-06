@@ -13,6 +13,10 @@ import { FrontOfficeComponent } from './front-office/front-office.component';
 import { AccueilComponent } from './front-office/accueil/accueil.component';
 import { FormAdminComponent } from './front-office/form-admin/form-admin.component';
 import { FormClientComponent } from './front-office/form-client/form-client.component';
+import { ClientComponent } from './front-office/client/client.component';
+import { ProfilComponent } from './front-office/client/profil/profil.component';
+import { EcolageComponent } from './front-office/client/ecolage/ecolage.component';
+import { NoteComponent } from './front-office/client/note/note.component';
 
 
 export const routes: Routes = [
@@ -29,6 +33,14 @@ export const routes: Routes = [
             { path: 'accueil', component: AccueilComponent },
             { path: 'form-admin', component: FormAdminComponent },
             { path: 'form-client', component: FormClientComponent },
+            { path: 'client/:matricule', component: ClientComponent, 
+                children: [
+                    { path: '', redirectTo: 'profil', pathMatch: 'full' },
+                    {path:'profil', component: ProfilComponent},
+                    {path:'ecolage', component: EcolageComponent},
+                    {path:'note', component: NoteComponent},
+                ]
+             },
         ]
     },
     

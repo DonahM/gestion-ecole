@@ -1,0 +1,10 @@
+.image{
+    background-color: blue;
+    width: 20%;
+    height: 50vh;
+    margin-top: 15vh;
+}
+.profil{
+    display: flex;
+    justify-content: space-around;
+}

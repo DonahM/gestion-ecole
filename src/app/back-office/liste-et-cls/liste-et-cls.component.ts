@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class ListeEtClsComponent {
   className!: string;
   students: any[] = [];
-  displayedColumns: string[] = ['matricule', 'nom', 'prenom', 'classe', 'annee', 'actions'];
+  displayedColumns: string[] = ['matricule', 'nom', 'prenom', 'classe', 'actions'];
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 

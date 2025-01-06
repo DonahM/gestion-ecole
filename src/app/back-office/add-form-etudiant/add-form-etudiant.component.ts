@@ -39,6 +39,7 @@ export class AddFormEtudiantComponent implements OnInit {
         sexe: ['', Validators.required],
         tel: ['', Validators.required],
         adress_edt: ['', Validators.required],
+        matricule: ['', Validators.required],
         father: ['', Validators.required],
         jobs_f: [''],
         mother: ['', Validators.required],
