@@ -35,25 +35,27 @@ export class EtudiantComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
-openAddYearDialog() {
-  const dialogRef = this.dialog.open(AnneescolaireComponent, {
-    width: '400px'
-  });
+  openAddYearDialog() {
+    const dialogRef = this.dialog.open(AnneescolaireComponent, {
+      width: '400px'
+    });
 
-  dialogRef.afterClosed().subscribe((result) => {
-    if (result) {
-      this.loadYearsSchools(); // Recharge les années scolaires après ajout
-    }
-  });
-}
-
-
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadYearsSchools(); // Recharge les années scolaires après ajout
+      }
+    });
+  }
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
+    this.loadYearsSchools(); // Charger les années scolaires
 
-    // Charger les années scolaires
-    this.loadYearsSchools();
+    const id = localStorage.getItem('id'); // Récupère un id à partir du stockage local
+    console.log("test: ",id )
+    if (id) {
+      this.loadClasses(id); // Charge les classes pour l'id stocké
+    }
 
     this.paginator._intl.itemsPerPageLabel = 'Éléments par page';
     this.paginator.pageSize = 10;
@@ -63,10 +65,8 @@ openAddYearDialog() {
   loadYearsSchools(): void {
     this.http.get<{ data: { idSchool: number; annee_scolaire: string }[]; total: number }>('http://localhost:3000/api/years-school').subscribe({
       next: (response) => {
-        // Assurez-vous que vous extrayez bien la propriété 'data'
         console.log('Années scolaires récupérées:', response.data);  // Affiche la propriété 'data' dans la console
         this.yearsSchools = response.data;  // Stocke les années scolaires
-        this.loadClasses(); // Une fois les années scolaires chargées, charger les classes
       },
       error: (error) => {
         console.error('Erreur lors du chargement des années scolaires:', error);
@@ -74,14 +74,19 @@ openAddYearDialog() {
       },
     });
   }
-  
-  
 
-  loadClasses(): void {
-    this.http.get('http://localhost:3000/api/classes').subscribe({
+  loadClasses(id: string): void {
+    if (!id) {
+      console.error('ID manquant pour charger les classes.');
+      return;
+    }
+
+    this.http.get(`http://localhost:3000/api/classes/${id}`).subscribe({
       next: (response: any) => {
-        this.data = this.mapData(response, this.yearsSchools); // Passe yearsSchools à mapData
-        this.dataSource.data = this.data; // Affecte les données à la source du tableau
+        
+        console.log('Classes récupérées:', response);
+        this.data = this.mapData(response, this.yearsSchools);
+        this.dataSource.data = this.data;
       },
       error: (error) => {
         console.error('Erreur lors de l\'appel API pour les classes:', error);
@@ -89,22 +94,21 @@ openAddYearDialog() {
       }
     });
   }
+
   mapData(data: any[], yearsSchools: Array<{ idSchool: number; annee_scolaire: string }>): Etudiant[] {
     const result: Etudiant[] = [];
     
-    // Vérifier que yearsSchools est un tableau
     if (!Array.isArray(yearsSchools)) {
       console.error('yearsSchools n\'est pas un tableau');
       return result;
     }
-  
+
     data.forEach((classe) => {
       classe.etudiants.forEach((etudiant: any) => {
-        // Vérifier si l'étudiant a un idSchool et que yearsSchools contient des éléments
         const anneeScolaire = etudiant.idSchool
           ? yearsSchools.find(year => year.idSchool === etudiant.idSchool)?.annee_scolaire
           : 'Non spécifié';
-  
+
         result.push({
           matricule: etudiant.idEdt,
           nom: etudiant.name,
@@ -114,7 +118,7 @@ openAddYearDialog() {
         });
       });
     });
-  
+
     return result;
   }
 

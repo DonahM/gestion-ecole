@@ -11,9 +11,6 @@ import {
   TemplatePortal
 } from "./chunk-YY7G2INJ.js";
 import {
-  CdkScrollable
-} from "./chunk-KQNDYRCP.js";
-import {
   animate,
   animateChild,
   group,
@@ -23,6 +20,9 @@ import {
   transition,
   trigger
 } from "./chunk-JC2ZSMV6.js";
+import {
+  CdkScrollable
+} from "./chunk-KQNDYRCP.js";
 import {
   A11yModule,
   Directionality,

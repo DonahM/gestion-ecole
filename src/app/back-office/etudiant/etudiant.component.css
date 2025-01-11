@@ -17,3 +17,24 @@
 table {
     width: 100%;
 }
+
+/* Media Queries pour des écrans de différentes tailles */
+@media (max-width: 768px) {
+    
+}
+
+@media (max-width: 480px) {
+    .headerTable{
+        font-size: 10px;
+        display: block;
+    }
+
+
+    .btnAdd{
+        margin-top: 0px;
+    }
+
+    .notShow{
+        display: none;
+    }
+}

@@ -1,1 +1,33 @@
-<p>ecolage works!</p>
+<p>Matricule : {{ client?.matricule }}</p>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Mois Column -->
+    <ng-container matColumnDef="mois">
+      <th mat-header-cell *matHeaderCellDef> Mois </th>
+      <td mat-cell *matCellDef="let ecolage"> {{ ecolage.mois }} </td>
+    </ng-container>
+  
+    <!-- Valeur Column -->
+    <ng-container matColumnDef="valeur">
+      <th mat-header-cell *matHeaderCellDef> Montant </th>
+      <td mat-cell *matCellDef="let ecolage"> {{ ecolage.valeur | currency:'MGA' }} </td>
+    </ng-container>
+  
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let ecolage"> {{ ecolage.date | date:'longDate' }} </td>
+      </ng-container>
+      
+    <!-- Statut Column -->
+    <ng-container matColumnDef="statut">
+      <th mat-header-cell *matHeaderCellDef> Statut </th>
+      <td mat-cell *matCellDef="let ecolage"> {{ ecolage.statut }} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  

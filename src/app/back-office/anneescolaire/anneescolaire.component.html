@@ -1,19 +1,13 @@
-<h2>Ajouter une Année Scolaire</h2>
+<div class="body">
+  <h2>Ajouter une Année Scolaire</h2>
 <form [formGroup]="form" (ngSubmit)="addYear()">
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" class="formfield">
     <mat-label>Année Scolaire</mat-label>
     <input matInput formControlName="annee_scolaire" />
     <mat-error *ngIf="form.get('annee_scolaire')?.hasError('required')">
       L'année scolaire est obligatoire.
     </mat-error>
-    <mat-error *ngIf="form.get('annee_scolaire')?.hasError('maxlength')">
-      L'année scolaire ne peut pas dépasser 255 caractères.
-    </mat-error>
   </mat-form-field>
-
-  <div *ngIf="form.invalid && form.touched" class="error-message">
-    Veuillez corriger les erreurs avant d'envoyer.
-  </div>
 
   <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
@@ -24,3 +18,5 @@
     </button>
   </div>
 </form>
+
+</div>

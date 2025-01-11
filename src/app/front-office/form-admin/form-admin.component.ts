@@ -29,12 +29,13 @@ export class FormAdminComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       const credentials = this.loginForm.value;
-
       this.http.post('http://localhost:3000/api/auth', credentials)
   .subscribe(
     (response: any) => {
       console.log('Réponse de l\'API:', response);
       if (response && response.success) {
+        localStorage.setItem('userData', JSON.stringify(response.data));
+        console.log("test2: ", localStorage.getItem('userData'))
         this.router.navigate(['/back-office']);
       } else {
         alert('Authentification échouée. Veuillez vérifier vos informations.');

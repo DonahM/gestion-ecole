@@ -1,0 +1,19 @@
+.body{
+    height: 30vh;
+}
+
+h2{
+    text-align: center;
+}
+
+.formfield{
+    display: flex;
+    justify-content: center;
+    margin: 0 10vh;
+}
+
+.actions{
+    display: flex;
+    justify-content: center;
+}
+

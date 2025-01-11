@@ -1,0 +1,79 @@
+/* Styles généraux */
+.table-container {
+    margin: 20px;
+    overflow-x: auto;
+  }
+  
+  /* Header de la table avec un alignement flexible */
+  .headerTable {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Ajouter un bouton avec un espacement du haut */
+  .btnAdd {
+    margin-top: 30px;
+  }
+  
+  /* Styles pour les petites tailles d'écran */
+  @media (max-width: 768px) {
+    /* Table responsive */
+    .mat-table {
+      width: 100%;
+      table-layout: auto;
+    }
+  
+    /* Réduire la taille des cellules pour s'adapter aux petits écrans */
+    .mat-header-cell, .mat-cell {
+      padding: 8px;
+      font-size: 12px;
+    }
+  
+    /* Cacher les colonnes moins importantes sur les petits écrans */
+    .mat-column-idSal, 
+    .mat-column-idProf, 
+    .mat-column-idSchool {
+      display: none;
+    }
+  
+    /* Cacher les actions pour les petits écrans et les remplacer par un bouton de menu ou autre */
+    .mat-column-actions {
+      display: none;
+    }
+  
+    /* Modifier les espacements du bouton pour les petits écrans */
+    .btnAdd {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+  
+    /* Pagination responsive */
+    mat-paginator {
+      font-size: 12px;
+    }
+  }
+  
+  /* Styles pour les très petits écrans, comme les smartphones */
+  @media (max-width: 480px) {
+    .headerTable {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .mat-header-cell, .mat-cell {
+      font-size: 10px;
+    }
+  
+    .btnAdd {
+      font-size: 12px;
+      margin-top: 10px;
+    }
+  
+    /* Réduire la taille des bordures et du padding pour les tables */
+    .mat-table {
+      font-size: 10px;
+    }
+  }
+  

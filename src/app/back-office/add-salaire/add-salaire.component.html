@@ -1,0 +1,60 @@
+<p>add-salaire works!</p>
+<form [formGroup]="matiereForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="mois">Mois</label>
+    <select id="mois" formControlName="mois">
+      <option value="" disabled selected>-- Sélectionnez un mois --</option>
+      <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+    </select>
+    <div *ngIf="matiereForm.get('mois')?.invalid && matiereForm.get('mois')?.touched">
+      <small *ngIf="matiereForm.get('mois')?.hasError('required')">Le choix du mois est requis.</small>
+    </div>
+  </div>
+  
+
+    <div>
+        <label for="statut">Status</label>
+        <input id="statut" formControlName="statut" type="text" />
+        <div *ngIf="matiereForm.get('statut')?.invalid && matiereForm.get('statut')?.touched">
+          <small *ngIf="matiereForm.get('statut')?.hasError('required')">Le nom de la Status est requis.</small>
+          <small *ngIf="matiereForm.get('statut')?.hasError('maxlength')">Le nom ne peut pas dépasser 225 caractères.</small>
+        </div>
+    </div>
+
+    <div>
+        <label for="valeur">valeur</label>
+        <input id="valeur" formControlName="valeur" type="text" />
+        <div *ngIf="matiereForm.get('valeur')?.invalid && matiereForm.get('valeur')?.touched">
+          <small *ngIf="matiereForm.get('valeur')?.hasError('required')">Le nom de la valeur est requis.</small>
+          <small *ngIf="matiereForm.get('valeur')?.hasError('maxlength')">Le nom ne peut pas dépasser 225 caractères.</small>
+        </div>
+    </div>
+
+    <div>
+        <label for="date">Date</label>
+        <input id="date" formControlName="date" type="date" />
+        <div *ngIf="matiereForm.get('date')?.invalid && matiereForm.get('date')?.touched">
+          <small *ngIf="matiereForm.get('date')?.hasError('required')">Le nom de la Date est requis.</small>
+          <small *ngIf="matiereForm.get('date')?.hasError('maxlength')">Le nom ne peut pas dépasser 225 caractères.</small>
+        </div>
+    </div>
+  
+    <div>
+      <label for="idProf">ID Professeur</label>
+      <input id="idProf" formControlName="idProf" type="number" />
+      <div *ngIf="matiereForm.get('idProf')?.invalid && matiereForm.get('idProf')?.touched">
+        <small *ngIf="matiereForm.get('idProf')?.hasError('required')">L'ID Professeur est requis.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="idSchool">ID Année Scolaire</label>
+      <input id="idSchool" formControlName="idSchool" type="number" />
+      <div *ngIf="matiereForm.get('idSchool')?.invalid && matiereForm.get('idSchool')?.touched">
+        <small *ngIf="matiereForm.get('idSchool')?.hasError('required')">L'Année Scolaire est requis.</small>
+      </div>
+    </div>
+  
+    <button type="submit" [disabled]="matiereForm.invalid">Ajouter le salaire</button>
+  </form>
+  

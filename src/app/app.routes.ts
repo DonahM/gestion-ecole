@@ -17,6 +17,14 @@ import { ClientComponent } from './front-office/client/client.component';
 import { ProfilComponent } from './front-office/client/profil/profil.component';
 import { EcolageComponent } from './front-office/client/ecolage/ecolage.component';
 import { NoteComponent } from './front-office/client/note/note.component';
+import { MatiereComponent } from './back-office/matiere/matiere.component';
+import { AddSemestreComponent } from './back-office/add-semestre/add-semestre.component';
+import { AddNoteComponent } from './back-office/add-note/add-note.component';
+import { AddSalaireComponent } from './back-office/add-salaire/add-salaire.component';
+import { TablematiereComponent } from './back-office/tablematiere/tablematiere.component';
+import { TableSemestreComponent } from './back-office/table-semestre/table-semestre.component';
+import { TableNoteComponent } from './back-office/table-note/table-note.component';
+import { TableSalaireComponent } from './back-office/table-salaire/table-salaire.component';
 
 
 export const routes: Routes = [
@@ -60,6 +68,14 @@ export const routes: Routes = [
             { path: 'prof', component: ProfComponent },
             { path: 'prof/profile/:idProf', component: ProfileProComponent },
             { path: 'prof/add-form-prof', component: AddFormProfComponent },
+            { path: 'tablematiere', component: TablematiereComponent },
+            { path: 'matiere', component: MatiereComponent },
+            { path: 'tablesemestre', component: TableSemestreComponent },
+            { path: 'semestre', component: AddSemestreComponent },
+            { path: 'tablenote', component: TableNoteComponent },
+            { path: 'note', component: AddNoteComponent },
+            { path: 'tablesalaire', component: TableSalaireComponent },
+            { path: 'salaire', component: AddSalaireComponent }
         ]
     },
 
