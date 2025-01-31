@@ -23,13 +23,13 @@
 
     <!-- Boucle sur les classes de chaque année scolaire -->
     <div class="cardClass">
-      <mat-card class="example-card" *ngFor="let class of year.classes" [routerLink]="['/back-office/class/listEtClass', class.name]">
+      <mat-card class="example-card" *ngFor="let class of year.classes" [routerLink]="['/back-office/class/listEtClass', class.idCls]">
         <mat-card-header>
-          <mat-card-title>{{ class.name }}</mat-card-title>
+          <mat-card-title>{{ class.name }} {{ class.num }}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <p>Titulaire: {{ class.titulaire }}</p>
-          <p>Numéro: {{ class.num }}</p>
+          <!-- <p>Numéro: {{ class.num }}</p> -->
         </mat-card-content>
       </mat-card>
     </div>

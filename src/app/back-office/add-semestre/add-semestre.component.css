@@ -5,7 +5,7 @@ p {
 form {
   max-width: 100%;
   margin: 20px auto;
-  padding: 0 15px; /* Ajout de padding pour un meilleur ajustement sur mobile */
+  padding: 0 15px;
   box-sizing: border-box;
 }
 
@@ -26,7 +26,7 @@ button {
   color: white;
   border: none;
   cursor: pointer;
-  width: 100%; /* Meilleure accessibilité sur mobile */
+  width: 100%;
 }
 
 button:disabled {
@@ -37,23 +37,20 @@ small {
   color: red;
   font-size: 0.9em;
 }
-
-/* Responsive pour petits écrans */
 @media (max-width: 600px) {
   form {
-    max-width: 90%; /* Utilise 90% de la largeur pour éviter des marges trop grandes */
+    max-width: 90%;
   }
 
   button {
-    padding: 12px 10px; /* Ajuste les marges pour de petits écrans */
+    padding: 12px 10px;
   }
 
   input {
-    font-size: 0.95em; /* Réduit la taille de police pour plus de clarté */
+    font-size: 0.95em;
   }
 }
 
-/* Responsive pour tablettes */
 @media (min-width: 601px) and (max-width: 1024px) {
   form {
     max-width: 80%;
@@ -64,7 +61,6 @@ small {
   }
 }
 
-/* Responsive pour écrans larges */
 @media (min-width: 1025px) {
   form {
     max-width: 600px;

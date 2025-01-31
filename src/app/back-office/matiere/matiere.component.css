@@ -5,7 +5,7 @@ p {
 form {
   max-width: 100%;
   margin: 20px auto;
-  padding: 0 15px; /* Ajout de padding pour un meilleur ajustement sur mobile */
+  padding: 0 15px;
   box-sizing: border-box;
 }
 
@@ -26,7 +26,7 @@ button {
   color: white;
   border: none;
   cursor: pointer;
-  width: 100%; /* Meilleure accessibilité sur mobile */
+  width: 100%;
 }
 
 button:disabled {

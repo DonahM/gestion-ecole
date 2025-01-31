@@ -1,0 +1,24 @@
+<p><strong>Nom :</strong> {{ student.name }} {{ student.surname }}</p>
+<table>
+  <thead>
+    <tr>
+      <th>Semestre</th>
+      <th>Matière</th>
+      <th>Note</th>
+      <th>Coefficient</th>
+      <th>Note pondérée</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let note of student.notes">
+      <td>{{note.idSem}}</td>
+      <td>{{ note.idMat }}</td> 
+      <td>{{ note.note }}</td>
+      <td>{{ note.coefficient }}</td>
+      <td>{{ note.note * note.coefficient | number:'1.2-2' }}</td> 
+    </tr>
+  </tbody>
+  <p><strong>Moyenne simple :</strong> {{ moyenneSimple | number:'1.2-2' }}</p>
+<p><strong>Moyenne pondérée :</strong> {{ moyennePonderee | number:'1.2-2' }}</p>
+
+</table>

@@ -1,10 +1,108 @@
-.image{
-    background-color: blue;
-    width: 20%;
-    height: 50vh;
-    margin-top: 15vh;
-}
-.profil{
+/* Styles généraux */
+.profil {
     display: flex;
-    justify-content: space-around;
-}
+    margin: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .apropos {
+    width: 50%;
+    padding: 20px;
+    margin: 5vh;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .image{
+    background-color: #f4f4f4;
+    margin: 5vh;
+    width: 200px;
+    height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .apropos h1 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .apropos p {
+    font-size: 16px;
+    color: #666;
+    margin: 5px 0;
+  }
+  
+  
+  /* Media Queries pour la responsivité */
+  
+  /* Tablette en mode portrait */
+  @media (max-width: 768px) {
+    .profil {
+      margin: 10px;
+    }
+  
+    .apropos {
+      padding: 15px;
+    }
+  
+    .apropos h1 {
+      font-size: 20px;
+    }
+  
+    .apropos p {
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .profil {
+      display: block;
+    }
+    
+    .image{
+        background-color: #f4f4f4;
+        margin: 0 5vh;
+        width: 225px;
+        height: 200px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .apropos {
+      padding: 10px;
+      width: 70%;
+    }
+  
+    .apropos h1 {
+      font-size: 18px;
+    }
+  
+    .apropos p {
+      font-size: 12px;
+    }
+  
+  }
+  
+  /* Écrans larges, comme les ordinateurs de bureau */
+  @media (min-width: 1024px) {
+    .profil {
+      margin: 30px auto;
+      max-width: 960px;
+    }
+  
+    .apropos {
+      padding: 25px;
+    }
+  
+    .apropos h1 {
+      font-size: 28px;
+    }
+  
+    .apropos p {
+      font-size: 18px;
+    }
+  }
+  

@@ -10,7 +10,7 @@
 
 .body h1 {
     text-align: center;
-    font-size: 4vw; /* Utilisation de unités relatives pour une taille de police adaptative */
+    font-size: 4vw;
     color: rgb(255, 255, 255);
 }
 
@@ -19,12 +19,12 @@
     height: auto;
     display: flex;
     justify-content: space-around;
-    flex-wrap: wrap; /* Ajoute de la flexibilité sur les petits écrans */
-    gap: 1rem; /* Espacement entre les boutons */
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .btnl {
-    width: 90%; /* Taille plus adaptée pour les petits écrans */
+    width: 90%;
     max-width: 400px;
     height: 10vh;
     font-size: 1.5rem;
@@ -32,7 +32,7 @@
 
 .formulaire {
     display: flex;
-    flex-direction: column; /* Alignement vertical sur les écrans étroits */
+    flex-direction: column;
     justify-content: center;
     margin: 2vh 5vw;
     padding: 5vh;
@@ -48,8 +48,8 @@
 }
 
 input {
-    width: 110%; /* Adapte la largeur pour être relative au conteneur parent */
-    max-width: 110%; /* Utilisation de 100% pour s'adapter à différentes tailles */
+    width: 110%;
+    max-width: 110%;
     background-color: transparent;
     font-size: 1.2rem;
     outline: none;
@@ -62,7 +62,6 @@ td {
     padding: 2vh 1vw;
 }
 
-/* Media Queries pour des écrans de différentes tailles */
 @media (max-width: 768px) {
     .body h1 {
         font-size: 6vw;

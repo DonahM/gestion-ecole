@@ -40,5 +40,5 @@ export interface Prof {
   name: string;
   surname: string;
   matiere: string;
-  salaires?: string[]; // Exemple si vous voulez afficher les salaires
+  salaires?: string[]; 
 }

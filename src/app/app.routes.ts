@@ -19,12 +19,14 @@ import { EcolageComponent } from './front-office/client/ecolage/ecolage.componen
 import { NoteComponent } from './front-office/client/note/note.component';
 import { MatiereComponent } from './back-office/matiere/matiere.component';
 import { AddSemestreComponent } from './back-office/add-semestre/add-semestre.component';
-import { AddNoteComponent } from './back-office/add-note/add-note.component';
 import { AddSalaireComponent } from './back-office/add-salaire/add-salaire.component';
 import { TablematiereComponent } from './back-office/tablematiere/tablematiere.component';
 import { TableSemestreComponent } from './back-office/table-semestre/table-semestre.component';
 import { TableNoteComponent } from './back-office/table-note/table-note.component';
 import { TableSalaireComponent } from './back-office/table-salaire/table-salaire.component';
+import { NotesclasseetudiantComponent } from './back-office/notesclasseetudiant/notesclasseetudiant.component';
+import { EcoleComponent } from './back-office/ecole/ecole.component';
+import { AddUserComponent } from './back-office/add-user/add-user.component';
 
 
 export const routes: Routes = [
@@ -44,9 +46,9 @@ export const routes: Routes = [
             { path: 'client/:matricule', component: ClientComponent, 
                 children: [
                     { path: '', redirectTo: 'profil', pathMatch: 'full' },
-                    {path:'profil', component: ProfilComponent},
-                    {path:'ecolage', component: EcolageComponent},
-                    {path:'note', component: NoteComponent},
+                    { path:'profil', component: ProfilComponent},
+                    { path:'ecolage', component: EcolageComponent},
+                    { path:'note', component: NoteComponent},
                 ]
              },
         ]
@@ -64,7 +66,7 @@ export const routes: Routes = [
             { path: 'etudiant/profilEtudiant/:idEdt', component: ProfilEtudiantComponent },
             { path: 'class', component: ClassComponent },
             { path: 'class/addClass', component: AddFormComponent },
-            { path: 'class/listEtClass/:className', component: ListeEtClsComponent },
+            { path: 'class/listEtClass/:idCls', component: ListeEtClsComponent },
             { path: 'prof', component: ProfComponent },
             { path: 'prof/profile/:idProf', component: ProfileProComponent },
             { path: 'prof/add-form-prof', component: AddFormProfComponent },
@@ -73,9 +75,11 @@ export const routes: Routes = [
             { path: 'tablesemestre', component: TableSemestreComponent },
             { path: 'semestre', component: AddSemestreComponent },
             { path: 'tablenote', component: TableNoteComponent },
-            { path: 'note', component: AddNoteComponent },
+            { path: 'tablenote/tablenoteclasse/:idCls', component: NotesclasseetudiantComponent },
             { path: 'tablesalaire', component: TableSalaireComponent },
-            { path: 'salaire', component: AddSalaireComponent }
+            { path: 'salaire', component: AddSalaireComponent },
+            { path: 'ecole', component: EcoleComponent },
+            { path: 'ecole/add-user', component: AddUserComponent },
         ]
     },
 

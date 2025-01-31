@@ -1,19 +1,19 @@
-<div class="profil">
-  <div class="apropos" *ngIf="client">
-    <h1>{{ client.name }} {{ client.surname }}</h1>
-    <p>N° Matricule : {{ client.matricule }}</p>
-    <p>Classe: {{ client.idCls }}</p>
-    <p>Né(e) le : {{ client.date_naiss }}</p>
-    <p>A : {{ client.lieu_naiss }}</p>
-    <p>Sexe : {{ client.sexe }}</p>
-    <p>Téléphone : {{ client.tel }}</p>
-    <p>Adresse : {{ client.adress_edt }}</p>
-    <p>Nom du Père : {{ client.father }}</p>
-    <p>Nom du Mère : {{ client.mother }}</p>
-    <p>Contact : {{ client.tel_parent }}</p>
-    <p>Adresse : {{ client.adresse_parent }}</p>
-  </div>
+<div class="profil" *ngIf="client">
   <div class="image">
     <img src="assets/img/logo.png" alt="Logo">
+  </div>
+  <div class="apropos">
+    <h1>{{ client?.name || 'Nom non disponible' }} {{ client?.surname || 'Prénom non disponible' }}</h1>
+    <p>N° Matricule : {{ client?.matricule || 'Non renseigné' }}</p>
+    <p>Classe: {{ client?.idCls || 'Non renseignée' }}</p>
+    <p>Né(e) le : {{ client?.date_naiss || 'Date non disponible' }}</p>
+    <p>A : {{ client?.lieu_naiss || 'Lieu non disponible' }}</p>
+    <p>Sexe : {{ client?.sexe || 'Non renseigné' }}</p>
+    <p>Téléphone : {{ client?.tel || 'Non renseigné' }}</p>
+    <p>Adresse : {{ client?.adress_edt || 'Non renseignée' }}</p>
+    <p>Nom du Père : {{ client?.father || 'Non renseigné' }}</p>
+    <p>Nom du Mère : {{ client?.mother || 'Non renseignée' }}</p>
+    <p>Contact : {{ client?.tel_parent || 'Non renseigné' }}</p>
+    <p>Adresse : {{ client?.adresse_parent || 'Non renseignée' }}</p>
   </div>
 </div>

@@ -1,4 +1,3 @@
-/* Modifier les espacements du bouton pour les petits écrans */
 .btnAdd {
     margin-top: 15px;
     font-size: 14px;
@@ -11,13 +10,11 @@
     margin-bottom: 20px;
   }
 
-  /* Styles généraux */
 .table-container {
     margin: 20px;
     overflow-x: auto;
   }
   
-  /* Header de la table avec un alignement flexible */
   .headerTable {
     display: flex;
     justify-content: space-around;
@@ -25,13 +22,11 @@
     margin-bottom: 20px;
   }
   
-  /* Bouton pour l'ajout d'éléments avec un espacement du haut */
-  .btnAdd {
+  /* .btnAdd {
     margin-top: 30px;
-    font-size: 16px;  /* Taille par défaut pour les grands écrans */
-  }
+    font-size: 16px;
+  } */
   
-  /* Responsive - Table et éléments pour les écrans de tablette (max-width: 768px) */
   @media (max-width: 768px) {
     .table-container {
       padding: 10px;
@@ -42,37 +37,31 @@
       table-layout: auto;
     }
   
-    /* Réduire la taille des cellules pour s'adapter aux petits écrans */
     .mat-header-cell, .mat-cell {
       padding: 8px;
-      font-size: 14px; /* Réduire la taille de la police */
+      font-size: 14px;
     }
   
-    /* Réduire les espacements du bouton pour les petits écrans */
     .btnAdd {
-      margin-top: 15px; /* Moins d'espacement en haut */
-      font-size: 14px;  /* Taille du texte du bouton plus petite */
+      margin-top: 15px;
+      font-size: 14px;
     }
   
-    /* Masquer certaines colonnes et actions */
     .mat-column-idSal, 
     .mat-column-idProf, 
     .mat-column-idSchool {
       display: none;
     }
   
-    /* Cacher les actions pour les petits écrans */
     .mat-column-actions {
       display: none;
     }
   
-    /* Pagination responsive */
     mat-paginator {
       font-size: 12px;
     }
   }
   
-  /* Responsive pour les très petits écrans, comme les smartphones (max-width: 480px) */
   @media (max-width: 480px) {
     .headerTable {
       flex-direction: column;
@@ -80,17 +69,16 @@
     }
   
     .mat-header-cell, .mat-cell {
-      font-size: 12px;  /* Plus petit pour les petits écrans */
+      font-size: 12px;
     }
   
     .btnAdd {
       font-size: 12px;
-      margin-top: 10px; /* Espacement réduit sur les très petits écrans */
+      margin-top: 10px;
     }
-  
-    /* Table et pagination plus petites sur les écrans mobiles */
+
     .mat-table {
-      font-size: 12px; /* Réduire la taille de la police */
+      font-size: 12px;
     }
   }
   

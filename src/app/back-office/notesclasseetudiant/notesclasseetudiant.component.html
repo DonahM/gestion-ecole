@@ -1,0 +1,33 @@
+<div class="student-container">
+  <h2>Liste des Étudiants - Classe {{ idCls }}</h2>
+
+  <table border="1px">
+    <tr>
+      <th>Nom</th>
+      <th *ngFor="let matiere of matieres">{{ matiere.name }} (Coef)</th>
+      <th>Moyenne</th>
+      <th>Total des Notes</th>
+    </tr>
+
+    <tr>
+      <td>Coefficient</td>
+      <td *ngFor="let matiere of matieres">
+        {{ getCoefficientForMatiere(matiere) }}
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+
+    <tr *ngFor="let student of students">
+      <td>{{ student.name }} {{ student.surname }}</td>
+      
+      <td *ngFor="let matiere of matieres">
+        {{ getNoteForStudent(student.idEdt, matiere) }}
+      </td>
+      
+      <td>{{ calculateAverageForStudent(student.idEdt) }}</td>
+      
+      <td>{{ getTotalNotesForStudent(student.idEdt) }}</td>
+    </tr>
+  </table>
+</div>

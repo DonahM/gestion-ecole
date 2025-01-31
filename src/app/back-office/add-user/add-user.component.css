@@ -1,0 +1,89 @@
+.form-container {
+    margin: 20px;
+  }
+  
+  form div {
+    margin-bottom: 10px;
+  }
+  
+  form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  form input {
+    width: 60%;
+    padding: 8px;
+    margin: 5px 0;
+    margin-left: 10%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    
+  }
+
+  label{
+    margin-left: 10%;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10%;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+  }
+  
+  .image{
+    width: 200px;
+    height: 200px;
+    background-image: url('../img/fond.jpg');
+  }
+
+  .contenner{
+    display: flex;
+    justify-content: space-around;
+  }
+
+  
+  .contenner {
+    display: flex;
+  }
+  
+  @media (min-width: 768px) {
+    .contenner {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  .dialog-actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 32px;
+  }
+  
+  button {
+    min-width: 100px;
+  }
+  
+  button[type="button"]:hover {
+    background-color: red;
+    color: white;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: green;
+    color: white;
+  }
+  

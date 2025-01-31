@@ -46,6 +46,7 @@ export class EcolageComponent implements OnInit {
         if (Array.isArray(data.ecolages)) {
           const ecolagesWithYears = data.ecolages.map((ecolage) => {
             const anneeScolaire = ecolage.years_schools ? ecolage.years_schools.annee_scolaire : 'Non spécifiée';
+            console.log("test345: ", anneeScolaire)
             return { ...ecolage, annee_scolaire: anneeScolaire };
           });
 
@@ -81,15 +82,15 @@ export class EcolageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const matricule = this.route.parent?.snapshot.paramMap.get('matricule');
-    console.log('Matricule:', matricule);  // Ajoutez un log pour vérifier
-    if (matricule) {
-      this.http.get(`http://localhost:3000/api/etudiants/matricule/${matricule}`).subscribe({
+    const name = this.route.parent?.snapshot.paramMap.get('name');
+    console.log('Matricule:', name);
+    if (name) {
+      this.http.get(`http://localhost:3000/api/etudiants/${name}`).subscribe({
         next: (data: any) => {
           if (Array.isArray(data) && data.length > 0) {
             this.client = data[0];
-            console.log('Client trouvé:', this.client);  // Vérifiez si 'client' est bien récupéré
-            this.fetchEcolages(this.client.idEdt);  // Appelez fetchEcolages avec l'ID du client
+            console.log('Client trouvé:', this.client); 
+            this.fetchEcolages(this.client.idEdt);
           } else {
             console.warn('Aucune donnée trouvée');
           }

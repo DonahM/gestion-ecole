@@ -24,7 +24,7 @@ export class TablematiereComponent implements OnInit {
   displayedColumns: string[] = ['name', 'idEdt', 'idSchool', 'actions'];
   dataSource: MatTableDataSource<Matiere> = new MatTableDataSource<Matiere>([]);
   errorMessage: string | null = null;
-  apiUrl: string = 'http://localhost:3000/api/matieres';  // Remplacez avec votre URL réelle
+  apiUrl: string = 'http://localhost:3000/api/matieres'; 
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 

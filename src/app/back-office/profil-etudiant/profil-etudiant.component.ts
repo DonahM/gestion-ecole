@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -11,24 +11,30 @@ import { EditStudentDialogComponent } from '../edit-student-dialog/edit-student-
 import { CommonModule } from '@angular/common';
 import { BadgeDialogComponent } from '../badge-dialog/badge-dialog.component';
 import { AddecolageComponent } from '../addecolage/addecolage.component';
-
-
-
+import { StudentNotesDialogComponent } from '../student-notes-dialog/student-notes-dialog.component';
 
 @Component({
   selector: 'app-profil-etudiant',
   standalone: true,
-  imports:[MatDialogModule, MatIconModule, MatButtonModule, MatSortModule, MatPaginatorModule, HttpClientModule, MatTableModule, CommonModule],
+  imports: [
+    MatDialogModule, 
+    MatIconModule, 
+    MatButtonModule, 
+    MatSortModule, 
+    MatPaginatorModule, 
+    HttpClientModule, 
+    MatTableModule, 
+    CommonModule
+  ],
   templateUrl: './profil-etudiant.component.html',
   styleUrls: ['./profil-etudiant.component.css'],
 })
 export class ProfilEtudiantComponent implements OnInit {
-  studentId: number | null = null;
+  studentId: string | null = null;
   student: Student | null = null;
   errorMessage: string | null = null;
 
   displayedColumns: string[] = ['mois', 'statut', 'valeur', 'date'];
-  
   dataSource = new MatTableDataSource<Ecolage>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -37,43 +43,56 @@ export class ProfilEtudiantComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.studentId = Number(this.route.snapshot.paramMap.get('idEdt'));
+    const studentIdParam = this.route.snapshot.paramMap.get('idEdt');
+    console.log('Param ID récupéré:', studentIdParam);
+
+    this.studentId = studentIdParam;
+
+    console.log("Student ID (Nom) : ", this.studentId);
+    
     if (this.studentId) {
-      this.fetchStudent(this.studentId);
-      this.fetchEcolages(this.studentId);
+      this.fetchStudentByName(this.studentId);
+      this.fetchEcolagesByName(this.studentId);
     } else {
-      this.errorMessage = 'ID de l’étudiant non valide.';
+      this.errorMessage = 'Nom de l’étudiant non valide.';
     }
   }
 
-  fetchStudent(id: number): void {
-    const apiUrl = `http://localhost:3000/api/etudiants/${id}`;
-    this.http.get<Student>(apiUrl).subscribe({
-      next: (data) => {
-        this.student = data;
-        // Si l'étudiant a une relation avec years_schools
+  fetchStudentByName(matricule: string): void {
+  const apiUrl = `http://localhost:3000/api/etudiants/matricule/${matricule}`;
+  this.http.get<Student[]>(apiUrl).subscribe({
+    next: (data) => {
+      if (data && data.length > 0) {
+        this.student = data[0]; // Accède au premier élément du tableau
+        console.log('Données de l’étudiant récupérées :', this.student);
+        console.log(`Nom de l'étudiant: ${this.student.name}, Prénom: ${this.student.surname}`);
         if (this.student.idSchool) {
-          this.fetchYearSchool(this.student.idSchool);  // Récupérer l'année scolaire
+          this.fetchYearSchool(this.student.idSchool);
         }
-      },
-      error: (error) => {
-        this.errorMessage = 'Impossible de charger les informations de l’étudiant.';
-      },
-    });
-  }
+      } else {
+        this.errorMessage = 'Aucun étudiant trouvé.';
+      }
+    },
+    error: () => {
+      this.errorMessage = 'Impossible de charger les informations de l’étudiant.';
+    },
+  });
+}
+
   
+
   fetchYearSchool(idSchool: number): void {
     const apiUrl = `http://localhost:3000/api/years-school/${idSchool}`;
     this.http.get<any>(apiUrl).subscribe({
       next: (data) => {
-        // Si on trouve les informations de l'année scolaire
         if (data) {
           if (this.student) {
-            this.student.years_schools = data; // Assigner l'année scolaire récupérée
+            this.student.years_schools = data;
           }
         }
       },
@@ -82,43 +101,31 @@ export class ProfilEtudiantComponent implements OnInit {
       },
     });
   }
-  
-  fetchEcolages(id: number): void {
-    const apiUrl = `http://localhost:3000/api/etudiants/${id}`;
+
+  fetchEcolagesByName(name: string): void {
+    const apiUrl = `http://localhost:3000/api/etudiants/${name}`;
     this.http.get<Student>(apiUrl).subscribe({
       next: (data) => {
         this.student = data;
-  
         if (Array.isArray(data.ecolages)) {
-          // Ajouter l'année scolaire à chaque écolage
-          const ecolagesWithYears = data.ecolages.map((ecolage) => {
-            const anneeScolaire = ecolage.years_schools ? ecolage.years_schools.annee_scolaire : 'Non spécifiée';
-            return { ...ecolage, annee_scolaire: anneeScolaire };
-          });
-  
-          this.dataSource.data = ecolagesWithYears.sort(
-            (a, b) => b.idEco - a.idEco
-          );
-          console.log('test',ecolagesWithYears);
+          this.dataSource.data = data.ecolages.sort((a, b) => b.idEco - a.idEco);
         } else {
           this.dataSource.data = [];
         }
-  
+
         if (this.paginator) {
           this.dataSource.paginator = this.paginator;
         }
         if (this.sort) {
           this.dataSource.sort = this.sort;
-        }
+        } 
       },
       error: () => {
         this.errorMessage = 'Impossible de charger les données des écolages.';
       },
     });
   }
-  
-  
-    
+
   openEditDialog(field: keyof Student): void {
     if (!this.student) return;
 
@@ -135,33 +142,44 @@ export class ProfilEtudiantComponent implements OnInit {
     });
   }
 
-  openAddEcolageDialog(): void {
-    const dialogRef = this.dialog.open(AddecolageComponent, {
-      data: { studentId: this.student!.idEdt },  // Utilisation de l'opérateur "!"
-    });
-  
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        // Rafraîchir ou ajouter l'écolage à la liste si nécessaire
-        this.fetchEcolages(this.student!.idEdt);  // Utilisation de l'opérateur "!"
-      }
-    });
-  }
   
   
 
-  openBadgeDialog(): void {
+  openAddEcolageDialog(): void {
+    const dialogRef = this.dialog.open(AddecolageComponent, {
+      data: { studentId: this.student!.idEdt },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      if (this.student) {
+        this.fetchEcolagesByName(this.student.name);
+      }
+    });
+  }
+
+  openNotesDialog(): void {
     if (this.student) {
-      const dialogRef = this.dialog.open(BadgeDialogComponent, {
-        data: this.student, // Passez les informations de l'étudiant au pop-up
+      const dialogRef = this.dialog.open(StudentNotesDialogComponent, {
+        data: this.student,
       });
-  
-      dialogRef.afterClosed().subscribe(result => {
+
+      dialogRef.afterClosed().subscribe(() => {
         console.log('Le pop-up a été fermé');
       });
     }
   }
-  
+
+  openBadgeDialog(): void {
+    if (this.student) {
+      const dialogRef = this.dialog.open(BadgeDialogComponent, {
+        data: this.student,
+      });
+
+      dialogRef.afterClosed().subscribe(() => {
+        console.log('Le pop-up a été fermé');
+      });
+    }
+  }
 
   updateStudent(field: keyof Student, value: any): void {
     if (!this.student) return;
@@ -181,7 +199,7 @@ export class ProfilEtudiantComponent implements OnInit {
 }
 
 export interface Student {
-matricule: any;
+  matricule: any;
   idEdt: number;
   name: string;
   surname: string;
@@ -206,10 +224,10 @@ matricule: any;
     idCls: number;
     name: string;
   };
-  idSchool: number;  // id de l'année scolaire
+  idSchool: number;
   years_schools?: {
     idSchool: number;
-    annee_scolaire: string; // L'année scolaire
+    annee_scolaire: string;
   };
   ecolages?: {
     mois: string;
@@ -219,8 +237,6 @@ matricule: any;
   };
 }
 
-
-
 export interface Ecolage {
   idEco: number;
   mois: string;
@@ -229,4 +245,3 @@ export interface Ecolage {
   date: string;
   idEdt: number;
 }
-

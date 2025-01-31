@@ -10,7 +10,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 
-// Définition de l'interface Teacher
 export interface Teacher {
   idProf: number;
   name: string;
@@ -36,8 +35,9 @@ export interface Teacher {
 })
 export class AddFormComponent {
   addClassForm: FormGroup;
-  teachers: Teacher[] = [];  // Initialisation de teachers avec le type
+  teachers: Teacher[] = [];
   yearsSchools: Array<{ idSchool: number; annee_scolaire: string }> = [];
+  idUser: number | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -46,17 +46,23 @@ export class AddFormComponent {
   ) {
     this.addClassForm = this.fb.group({
       name: ['', Validators.required],
-      titulaire: ['', Validators.required],  // Ajout du contrôle pour "titulaire"
+      titulaire: ['', Validators.required],
       num: ['', Validators.required],
       idSchool: ['', Validators.required], 
     });
   }
 
   ngOnInit() {
-    // Récupérer les enseignants
+    const userData = localStorage.getItem('userData');
+    const connectedUser = userData ? JSON.parse(userData) : null;
+
+    if (connectedUser && connectedUser.idUser) {
+      this.idUser = connectedUser.idUser;
+    } else {
+      alert('Utilisateur non connecté. Veuillez vous reconnecter.');
+    }
     this.http.get<Teacher[]>('http://localhost:3000/api/professeurs').subscribe({
       next: (data) => {
-        console.log('Données reçues pour les enseignants :', data);
         this.teachers = Array.isArray(data) ? data : [];
       },
       error: (error) => {
@@ -64,7 +70,6 @@ export class AddFormComponent {
       },
     });
   
-    // Récupérer les années scolaires et trier par date la plus récente
     this.http.get<{ data: { idSchool: number; annee_scolaire: string }[] }>('http://localhost:3000/api/years-school').subscribe({
       next: (response) => {
         console.log('Données reçues pour yearsSchools :', response);
@@ -78,17 +83,17 @@ export class AddFormComponent {
     });
   }
   
-  
-  
-  
-  
-  
 
   onSubmit() {
     if (this.addClassForm.valid) {
       const apiUrl = 'http://localhost:3000/api/classes';
 
-      this.http.post(apiUrl, this.addClassForm.value).subscribe(
+      const formData = {
+        ...this.addClassForm.value,
+        idUser: this.idUser,
+      };
+
+      this.http.post(apiUrl, formData).subscribe(
         (response) => {
           console.log('Classe ajoutée avec succès :', response);
           alert('Classe ajoutée avec succès !');

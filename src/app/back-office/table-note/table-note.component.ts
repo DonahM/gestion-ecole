@@ -1,66 +1,77 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { RouterModule } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Classe } from '../../models/classe.model';
+import { ClasseService } from '../../services/classe.service';
+import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-table-note',
   standalone: true,
   imports: [
-    MatButtonModule,
-    MatPaginatorModule,
-    MatTableModule,
-    MatIconModule,
-    RouterModule,
+    MatCardModule,
     CommonModule,
     HttpClientModule,
+    RouterModule
   ],
+  providers: [ClasseService],
   templateUrl: './table-note.component.html',
-  styleUrl: './table-note.component.css',
+  styleUrls: ['./table-note.component.css'],
 })
 export class TableNoteComponent implements OnInit {
-  displayedColumns: string[] = ['note', 'coefficient', 'idEdt', 'idMat', 'idSchool', 'idSem', 'actions'];
-  dataSource: MatTableDataSource<Note> = new MatTableDataSource<Note>([]);
-  errorMessage: string | null = null;
+  classes: Classe[] = [];
+  displayedColumns: string[] = ['idCls', 'name', 'titulaire', 'num', 'anneeScolaire', 'actions'];
+  dataSource = new MatTableDataSource<Classe>(this.classes);
+  currentUser: any; 
 
-  constructor(private http: HttpClient, private dialog: MatDialog) {}
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  constructor(
+    private classeService: ClasseService,
+    private router: Router
+  ) {}
 
-  ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.loadNotes();
+  ngOnInit(): void {
+    this.checkUserConnection();
+    this.loadClasses();
   }
 
-  loadNotes(): void {
-    const apiUrl = 'http://localhost:3000/api/notes'; // Adjust your API endpoint
-    this.http.get<Note[]>(apiUrl).subscribe({
-      next: (data) => {
-        this.dataSource.data = data;
+  checkUserConnection(): void {
+    const userData = localStorage.getItem('userData');
+
+    if (!userData) {
+      alert('Utilisateur non connecté. Veuillez vous reconnecter.');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.currentUser = JSON.parse(userData);
+    console.log('Utilisateur connecté :', this.currentUser);
+  }
+
+  loadClasses(): void {
+    if (!this.currentUser) {
+      return;
+    }
+
+    this.classeService.getClasses().subscribe(
+      (data: Classe[]) => {
+        this.classes = data.filter((classe) => classe.idUser === this.currentUser.idUser);
+        this.dataSource.data = this.classes;
+
+        if (this.paginator) {
+          this.dataSource.paginator = this.paginator;
+        }
       },
-      error: (error) => {
-        console.error('Erreur lors du chargement des notes:', error);
-        this.errorMessage = 'Impossible de charger les notes.';
-      },
-    });
+      (error) => {
+        console.error('Erreur de récupération des classes :', error);
+      }
+    );
   }
-
-  deleteElement(idNot: number): void {
-    this.dataSource.data = this.dataSource.data.filter((note) => note.idNot !== idNot);
+  viewNotes(idCls: number): void {
+    this.router.navigate([`/tablenote/tablenoteclasse/${idCls}`]);
   }
-}
-
-export interface Note {
-  idNot: number;
-  note: number;
-  coefficient: number;
-  idEdt: number;
-  idMat: number;
-  idSchool: number;
-  idSem: number;
 }

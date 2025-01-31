@@ -11,22 +11,25 @@ import { RouterModule } from '@angular/router';
   styleUrl: './back-office.component.css'
 })
 export class BackOfficeComponent {
-  data: any; // Pour stocker les données reçues
-  errorMessage: string | null = null; // Pour gérer les erreurs
 
-  constructor(private http: HttpClient) {}
+  isMenuOpen = false;
 
-  ngOnInit() {
-    // Exemple d'appel API
-    this.http.get('http://localhost:3000/api/classes') // Remplacez par votre URL d'API
-      .subscribe({
-        next: (response) => {
-          this.data = response; // Stocke les données reçues
-        },
-        error: (error) => {
-          console.error('Erreur lors de l\'appel API:', error);
-          this.errorMessage = 'Impossible de charger les données.'; // Message d'erreur
-        }
-      });
+  // Fonction pour ouvrir/fermer le menu
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu() {
+    this.isMenuOpen = false;
+  }
+  scrollToSection(sectionId: string) {
+    this.isMenuOpen = false; 
+
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 300);
   }
 }

@@ -1,0 +1,73 @@
+/* Conteneur principal avec un style plus sobre et centré */
+#student-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Chaque ligne d'information */
+  #student-info p {
+    margin: 5px 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #444;
+  }
+  
+  /* Style pour les étiquettes */
+  #student-info strong {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  /* Titre avec un style simple et centré */
+  h1[mat-dialog-title] {
+    font-size: 22px;
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Boutons alignés */
+  mat-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+  }
+  
+  /* Style pour les boutons */
+  mat-dialog-actions button {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, background-color 0.3s ease;
+  }
+  
+  mat-dialog-actions button:first-child {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  mat-dialog-actions button:nth-child(2) {
+    background-color: #FFA726;
+    color: white;
+  }
+  
+  mat-dialog-actions button:last-child {
+    background-color: #E57373;
+    color: white;
+  }
+  
+  mat-dialog-actions button:hover {
+    transform: scale(1.05);
+  }
+  

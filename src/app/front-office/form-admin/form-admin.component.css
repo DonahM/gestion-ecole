@@ -10,7 +10,7 @@
 
 .body h1 {
     text-align: center;
-    font-size: 4vw; /* Utilisation de unités relatives pour une taille de police adaptative */
+    font-size: 4vw;
     color: rgb(255, 255, 255);
 }
 

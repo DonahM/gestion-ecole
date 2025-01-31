@@ -1,17 +1,21 @@
 <nav class="navBar">
-    <div class="logo"></div>
-    <div class="menu">
+    <div class="container">
+      <div class="logo"></div>
+      <button class="menu-toggle" (click)="toggleMenu()">☰</button>
+      <div class="menu" [ngClass]="{'active': isMenuOpen}">
         <nav>
-            <a routerLink="/back-office/etudiant">Etudiants</a>
-            <a routerLink="/back-office/class">Classes</a>
-            <a routerLink="/back-office/prof">Professeurs</a>
-            <a routerLink="/back-office/tablematiere">Matières</a>
-            <a routerLink="/back-office/tablesemestre">Semèstres</a>
-            <a routerLink="/back-office/tablenote">Notes</a>
-            <a routerLink="/back-office/tablesalaire">Salaires</a>
-            b
+          <a routerLink="/back-office/etudiant" (click)="closeMenu()">Etudiants</a>
+          <a routerLink="/back-office/class" (click)="closeMenu()">Classes</a>
+          <a routerLink="/back-office/prof" (click)="closeMenu()">Professeurs</a>
+          <a routerLink="/back-office/tablematiere" (click)="closeMenu()">Matières</a>
+          <a routerLink="/back-office/tablesemestre" (click)="closeMenu()">Semestres</a>
+          <a routerLink="/back-office/tablenote" (click)="closeMenu()">Notes</a>
+          <a routerLink="/back-office/tablesalaire" (click)="closeMenu()">Salaires</a>
+          <a routerLink="/back-office/ecole" (click)="closeMenu()">Écoles</a>
         </nav>
+      </div>
     </div>
   </nav>
   <hr>
   <router-outlet></router-outlet>
+  

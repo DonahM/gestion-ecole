@@ -61,6 +61,9 @@ export class AddFormEtudiantComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const userData = localStorage.getItem('userData');
+    console.log(userData);
+    
     this.loadClasses();
     this.loadYearsSchools();
   }
@@ -102,19 +105,49 @@ export class AddFormEtudiantComponent implements OnInit {
     return password === confirmPassword ? null : { passwordsMismatch: true };
   }
 
+  // onSubmit(): void {
+  //   if (this.studentForm.valid) {
+  //     // Exclure `confirmPassword` avant d'envoyer les données au serveur
+  //     const { confirmPassword, ...studentData } = this.studentForm.value;
+  //     this.http.post('http://localhost:3000/api/etudiants', studentData).subscribe({
+  //       next: (response) => {
+  //         console.log('Étudiant ajouté avec succès:', response);
+  //         this.router.navigate(['/back-office/etudiant']);
+  //       },
+  //       error: (error) => console.error('Erreur lors de l\'ajout de l\'étudiant:', error),
+  //     });
+  //   } else {
+  //     console.warn('Formulaire invalide:', this.studentForm.value);
+  //   }
+  // }
+
   onSubmit(): void {
     if (this.studentForm.valid) {
-      // Exclure `confirmPassword` avant d'envoyer les données au serveur
       const { confirmPassword, ...studentData } = this.studentForm.value;
-      this.http.post('http://localhost:3000/api/etudiants', studentData).subscribe({
-        next: (response) => {
-          console.log('Étudiant ajouté avec succès:', response);
-          this.router.navigate(['/back-office/etudiant']);
-        },
-        error: (error) => console.error('Erreur lors de l\'ajout de l\'étudiant:', error),
-      });
-    } else {
-      console.warn('Formulaire invalide:', this.studentForm.value);
-    }
+  
+      // Récupérer les données de l'utilisateur connecté
+      const userData = localStorage.getItem('userData');
+      if (userData) {
+        const currentUser = JSON.parse(userData);
+
+        const data = {...studentData, idUser: currentUser.idUser}
+        console.log(data);
+        
+        this.http.post('http://localhost:3000/api/etudiants', data).subscribe({
+          next: (response) => {
+            console.log('Étudiant ajouté avec succès:', response);
+            this.router.navigate(['/back-office/etudiant']);
+          },
+          error: (error) => console.error('Erreur lors de l\'ajout de l\'étudiant:', error),
+        });
+      } else {
+        console.warn('Formulaire invalide:', this.studentForm.value);
+      }
+      } else {
+        console.error('Utilisateur non authentifié.');
+        return; // Arrête le treuhugegeaitement si aucune information utilisateur n'est trouvée
+      }
+
   }
+  
 }

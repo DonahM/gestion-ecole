@@ -1,0 +1,86 @@
+<div class="contenner">
+  <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+      <table>
+        <tr>
+          <td>
+            <label for="name">Nom :</label>
+          </td>
+          <td>
+            <input id="name" type="text" [(ngModel)]="user.name" name="name" required />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="surname">Prénom :</label>
+          </td>
+          <td>
+            <input id="surname" type="text" [(ngModel)]="user.surname" name="surname" required />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="cin">CIN :</label>
+          </td>
+          <td>
+            <input id="cin" type="text" [(ngModel)]="user.cin" name="cin" required />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="email">Email :</label>
+          </td>
+          <td>
+            <input id="email" type="email" [(ngModel)]="user.email" name="email" required />
+          </td>
+        </tr>
+      
+        <tr >
+          <td>
+            <label>Rôles :</label>
+          </td>
+          <td>
+            <input
+              type="checkbox"
+              id="admin"
+              [(ngModel)]="selectedRoles.admin"
+              name="rolesAdmin"
+              value="ADMIN"
+            />
+            <label for="admin">Admin</label>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>
+            <label for="logo">Logo (URL) :</label>
+          </td>
+          <td>
+            <input id="logo" type="text" [(ngModel)]="user.logo" name="logo" />
+          </td>
+        </tr>
+      
+        <tr>
+          <td>
+            <label for="lieu">Lieu :</label>
+          </td>
+          <td>
+            <input id="lieu" type="text" [(ngModel)]="user.lieu" name="lieu" required />
+          </td>
+        </tr>
+      
+        <tr>
+          <td>
+            <label for="password">Mot de passe :</label>
+          </td>
+          <td>
+            <input id="password" type="password" [(ngModel)]="user.password" name="password" required />
+          </td>
+        </tr>
+      </table>
+      <button type="submit" [disabled]="!userForm.form.valid">Ajouter Utilisateur</button>
+  </form>
+  <div class="image">
+    
+  </div>
+</div>
+  

@@ -50,9 +50,24 @@ export class TableSemestreComponent implements OnInit {
     });
   }
 
+  // deleteElement(idSem: number): void {
+  //   this.dataSource.data = this.dataSource.data.filter((semester) => semester.idSem !== idSem);
+  // }
+
   deleteElement(idSem: number): void {
-    this.dataSource.data = this.dataSource.data.filter((semester) => semester.idSem !== idSem);
+    const apiUrl = `http://localhost:3000/api/semestres/${idSem}`;
+    this.http.delete(apiUrl).subscribe({
+      next: () => {
+        // Supprimer l'élément du tableau local après la suppression réussie sur le serveur
+        this.dataSource.data = this.dataSource.data.filter((semester) => semester.idSem !== idSem);
+      },
+      error: (error) => {
+        console.error('Erreur lors de la suppression du semestre:', error);
+        this.errorMessage = 'Impossible de supprimer le semestre.';
+      },
+    });
   }
+
 }
 
 export interface Semestre {

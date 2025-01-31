@@ -12,29 +12,23 @@
         <td mat-cell *matCellDef="let element"> {{ element.idSem }} </td>
       </ng-container> -->
   
-      <!-- Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Semestre </th>
         <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
       </ng-container>
   
-      <!-- ID School Column -->
       <ng-container matColumnDef="idSchool">
         <th mat-header-cell *matHeaderCellDef>Année Scolaire </th>
         <td mat-cell *matCellDef="let element"> {{ element.idSchool }} </td>
       </ng-container>
-  
-      <!-- Actions Column -->
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="primary" (click)="deleteElement(element.idSem)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-  
-      <!-- Table Header and Row Declarations -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="primary" (click)="deleteElement(element.idSem)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>

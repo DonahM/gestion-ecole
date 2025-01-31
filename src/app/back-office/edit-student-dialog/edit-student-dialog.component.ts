@@ -23,9 +23,7 @@ export class EditStudentDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 
-  /**
-   * Handles the "cancel" action. Prompts the user for confirmation if there are unsaved changes.
-   */
+  
   onNoClick(): void {
     if (this.data.value) {
       const confirmClose = confirm(
@@ -36,9 +34,7 @@ export class EditStudentDialogComponent {
     this.dialogRef.close();
   }
 
-  /**
-   * Handles the "save" action and closes the dialog with the updated data.
-   */
+  
   onSave(): void {
     this.dialogRef.close({ status: 'saved', value: this.data.value });
   }

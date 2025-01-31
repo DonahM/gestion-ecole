@@ -38,7 +38,7 @@ export class TableSalaireComponent implements OnInit {
   }
 
   loadSalaries(): void {
-    const apiUrl = 'http://localhost:3000/api/salaires'; // L'URL de votre API
+    const apiUrl = 'http://localhost:3000/api/salaires';
     this.http.get<Salaire[]>(apiUrl).subscribe({
       next: (data) => {
         this.dataSource.data = data;
