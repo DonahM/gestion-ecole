@@ -2,7 +2,6 @@
   <div class="headerTable">
     <h1>Liste des classes</h1>
 
-    <!-- Liste déroulante pour sélectionner l'année scolaire -->
     <mat-form-field appearance="fill" class="btnAdd">
       <mat-label>Sélectionner une année scolaire</mat-label>
       <mat-select [(value)]="selectedYear" (selectionChange)="onYearChange()">
@@ -12,16 +11,14 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-
+    <button mat-stroked-button color="primary" class="btnAdd" [routerLink]="['/back-office/class/addClass']">Année et Classes</button>
     <button mat-stroked-button color="primary" class="btnAdd" [routerLink]="['/back-office/class/addClass']">Ajouter</button>
   </div>
   <hr>
 
-  <!-- Boucle sur les années scolaires filtrées -->
   <div *ngFor="let year of filteredYears">
-    <h3>{{ year.annee_scolaire }}</h3> <!-- Afficher l'année scolaire -->
+    <h3>{{ year.annee_scolaire }}</h3> 
 
-    <!-- Boucle sur les classes de chaque année scolaire -->
     <div class="cardClass">
       <mat-card class="example-card" *ngFor="let class of year.classes" [routerLink]="['/back-office/class/listEtClass', class.idCls]">
         <mat-card-header>

@@ -30,20 +30,18 @@ import { AddUserComponent } from './back-office/add-user/add-user.component';
 
 
 export const routes: Routes = [
-    // Redirection par défaut
     { path: '', redirectTo: 'front-office', pathMatch: 'full' },
 
-    // Front-office routes
     { 
         path: 'front-office',
         component: FrontOfficeComponent, 
         children: 
         [
-            { path: '', redirectTo: 'accueil', pathMatch: 'full' },  // Route par défaut
+            { path: '', redirectTo: 'accueil', pathMatch: 'full' },
             { path: 'accueil', component: AccueilComponent },
             { path: 'form-admin', component: FormAdminComponent },
             { path: 'form-client', component: FormClientComponent },
-            { path: 'client/:matricule', component: ClientComponent, 
+            { path: 'client/:idEdt', component: ClientComponent, 
                 children: [
                     { path: '', redirectTo: 'profil', pathMatch: 'full' },
                     { path:'profil', component: ProfilComponent},

@@ -59,6 +59,7 @@ export class ListeEtClsComponent implements OnInit {
           this.dataSource.data = this.students;
           this.dataSource.paginator = this.paginator;
         }
+        console.log('test45: ', this.students )
       },
       (error) => {
         console.error('Erreur lors du chargement des classes :', error);

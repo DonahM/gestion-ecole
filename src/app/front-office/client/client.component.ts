@@ -17,9 +17,10 @@ export class ClientComponent implements OnInit {
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    const matricule = this.route.snapshot.paramMap.get('matricule'); // Utilisez 'route' pour accéder aux paramètres
-    if (matricule) {
-      this.http.get(`http://localhost:3000/api/etudiants/matricule/${matricule}`).subscribe({
+    const idEdt = this.route.snapshot.paramMap.get('idEdt'); // Utilisez 'route' pour accéder aux paramètres
+    console.log("ghfghghh: ", idEdt)
+    if (idEdt) {
+      this.http.get(`http://localhost:3000/api/etudiants/id/${idEdt}`).subscribe({
         next: (data: any) => {
           if (Array.isArray(data) && data.length > 0) {
             this.client = data[0];  // Accédez au premier objet du tableau

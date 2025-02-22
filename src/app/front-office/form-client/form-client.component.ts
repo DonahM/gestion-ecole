@@ -21,7 +21,7 @@ export class FormClientComponent {
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      matricule: ['', Validators.required],
+      idEdt: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
@@ -35,7 +35,7 @@ export class FormClientComponent {
     (response: any) => {
       console.log('Réponse de l\'API:', response);
       if (response && response.success) {
-        this.router.navigate(['/front-office/client', response.data.matricule]);
+        this.router.navigate(['/front-office/client', response.data.idEdt]);
       } else {
         alert('Authentification échouée. Veuillez vérifier vos informations.');
       }

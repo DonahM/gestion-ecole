@@ -21,32 +21,75 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
   ],
   templateUrl: './table-salaire.component.html',
-  styleUrl: './table-salaire.component.css',
+  styleUrls: ['./table-salaire.component.css'],
 })
 export class TableSalaireComponent implements OnInit {
-  displayedColumns: string[] = [ 'idProf','mois', 'valeur', 'idSchool', 'date', 'statut', 'actions'];
+  displayedColumns: string[] = ['profName', 'mois', 'valeur', 'annee_scolaire', 'date', 'statut', 'actions'];
   dataSource: MatTableDataSource<Salaire> = new MatTableDataSource<Salaire>([]);
   errorMessage: string | null = null;
 
-  constructor(private http: HttpClient, private dialog: MatDialog) {}
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  professeur: any[] = [];
+  anneesScolaires: Array<{ idSchool: number; annee_scolaire: string }> = [];
+  salaireData: any[] = [];
+
+  constructor(private http: HttpClient, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
-    this.loadSalaries();
+    this.getProfesseur();
+    this.getAnneesScolaires();
   }
-
-  loadSalaries(): void {
-    const apiUrl = 'http://localhost:3000/api/salaires';
-    this.http.get<Salaire[]>(apiUrl).subscribe({
-      next: (data) => {
-        this.dataSource.data = data;
+  getProfesseur(): void {
+    this.http.get<any[]>('http://localhost:3000/api/professeurs').subscribe({
+      next: (professeurs) => {
+        this.professeur = professeurs;
+        this.getSalaire(); 
       },
       error: (error) => {
-        console.error('Erreur lors du chargement des salaires:', error);
-        this.errorMessage = 'Impossible de charger les salaires.';
+        console.error('Erreur lors de la récupération des professeurs :', error);
+      }
+    });
+  }
+
+  /** 🔹 Récupère les années scolaires */
+  getAnneesScolaires(): void {
+    this.http.get<{ data: any[], total: number }>('http://localhost:3000/api/years-school')
+      .subscribe({
+        next: (response) => {
+          console.log('Années scolaires récupérées :', response);
+          this.anneesScolaires = response.data;
+        },
+        error: (error) => {
+          console.error("Erreur lors de la récupération des années scolaires :", error);
+        }
+      });
+  }
+
+  /** 🔹 Récupère les salaires et associe les professeurs et années scolaires */
+  getSalaire(): void {
+    this.http.get<any[]>('http://localhost:3000/api/salaires').subscribe({
+      next: (salaires) => {
+        this.salaireData = salaires.map((salaire) => {
+          const prof = this.professeur.find(p => p.idProf === salaire.idProf);
+          const profName = prof ? `${prof.name} ${prof.surname}` : 'Inconnu';
+          
+          const annee = this.anneesScolaires.find(a => a.idSchool === salaire.idSchool);
+          const anneeScolaire = annee ? annee.annee_scolaire : 'Inconnue';
+          
+          return {
+            ...salaire,
+            profName,
+            annee_scolaire: anneeScolaire
+          };
+        });
+
+        this.dataSource.data = this.salaireData; 
       },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des salaires :', error);
+      }
     });
   }
 
@@ -63,4 +106,6 @@ export interface Salaire {
   date: string;
   idProf: number;
   idSchool: number;
+  profName?: string;
+  annee_scolaire?: string;
 }

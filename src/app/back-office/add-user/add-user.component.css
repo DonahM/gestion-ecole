@@ -40,9 +40,10 @@
   }
   
   .image{
-    width: 200px;
-    height: 200px;
-    background-image: url('../img/fond.jpg');
+    width: 500px;
+    height: 500px;
+    background-image: url('../img/2247728.png');
+    background-repeat: no-repeat;
   }
 
   .contenner{

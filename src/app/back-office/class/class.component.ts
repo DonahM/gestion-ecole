@@ -26,48 +26,75 @@ export class ClassComponent {
 
   ngOnInit() {
     const userData = localStorage.getItem('userData');
-
+  
     if (!userData) {
       alert('Utilisateur non connecté. Veuillez vous reconnecter.');
       this.router.navigate(['/login']);
       return;
     }
-
+  
     const userId = JSON.parse(userData).idUser;
-
+  
     this.http.get<any[]>('http://localhost:3000/api/classes')
       .subscribe({
-        next: (response) => {
-          console.log('Classes reçues:', response);
+        next: (classes) => {
+          console.log('Classes reçues:', classes);
+  
+          const filteredClasses = classes.filter(classItem => classItem.idUser === userId);
+  
+          this.http.get<any>('http://localhost:3000/api/years-school')
+  .subscribe({
+    next: (response) => {
+      console.log('Réponse API écoles:', response);
 
-          const filteredClasses = response.filter(classItem => classItem.idUser === userId);
-          const groupedByYear = this.groupClassesByYear(filteredClasses);
+      const schools = response?.data || [];
 
-          this.years = groupedByYear.sort((a, b) => parseInt(b.annee_scolaire) - parseInt(a.annee_scolaire));
-          this.filteredYears = [...this.years];
-          this.cdr.detectChanges();
+      console.log('Écoles après extraction:', schools);
+
+      this.years = this.groupClassesByYear(filteredClasses, schools);
+      this.filteredYears = [...this.years];
+      this.cdr.detectChanges();
+    },
+    error: (error) => {
+      console.error('Erreur lors de la récupération des écoles:', error);
+      this.errorMessage = 'Impossible de charger les années scolaires.';
+    }
+  });
+
         },
         error: (error) => {
-          console.error('Erreur lors de l\'appel API:', error);
-          this.errorMessage = 'Impossible de charger les données des années scolaires et des classes.';
+          console.error('Erreur lors de la récupération des classes:', error);
+          this.errorMessage = 'Impossible de charger les classes.';
         }
       });
   }
-  groupClassesByYear(classes: any[]) {
+  
+  
+  groupClassesByYear(classes: any[], schools: any[]) {
+    const schoolMap = schools.reduce((acc, school) => {
+      acc[school.idSchool] = school.annee_scolaire;  
+      return acc;
+    }, {} as Record<number, string>);
+  
+    console.log('Mapping des écoles:', schoolMap);
+  
     const grouped = classes.reduce((acc, classItem) => {
-      const year = classItem.years_schools?.annee_scolaire || 'Année scolaire non définie';
+      const idSchool = classItem.years_schools?.[0]?.idSchool;
+      const year = schoolMap[idSchool] || 'Année scolaire non définie';
+  
       if (!acc[year]) {
         acc[year] = [];
       }
       acc[year].push(classItem);
       return acc;
-    }, {});
-
+    }, {} as Record<string, any[]>);
+  
     return Object.keys(grouped).map((year) => ({
       annee_scolaire: year,
       classes: grouped[year],
     }));
   }
+  
 
   onYearChange() {
     if (this.selectedYear) {

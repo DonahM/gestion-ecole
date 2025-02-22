@@ -4,7 +4,7 @@
   </div>
   <div class="apropos">
     <h1>{{ client?.name || 'Nom non disponible' }} {{ client?.surname || 'Prénom non disponible' }}</h1>
-    <p>N° Matricule : {{ client?.matricule || 'Non renseigné' }}</p>
+    <p>N° Matricule : {{ client?.idEdt || 'Non renseigné' }}</p>
     <p>Classe: {{ client?.idCls || 'Non renseignée' }}</p>
     <p>Né(e) le : {{ client?.date_naiss || 'Date non disponible' }}</p>
     <p>A : {{ client?.lieu_naiss || 'Lieu non disponible' }}</p>

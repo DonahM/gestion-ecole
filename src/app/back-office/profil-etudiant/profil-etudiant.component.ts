@@ -68,7 +68,7 @@ export class ProfilEtudiantComponent implements OnInit {
   this.http.get<Student[]>(apiUrl).subscribe({
     next: (data) => {
       if (data && data.length > 0) {
-        this.student = data[0]; // Accède au premier élément du tableau
+        this.student = data[0];
         console.log('Données de l’étudiant récupérées :', this.student);
         console.log(`Nom de l'étudiant: ${this.student.name}, Prénom: ${this.student.surname}`);
         if (this.student.idSchool) {

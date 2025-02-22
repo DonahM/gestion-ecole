@@ -51,8 +51,8 @@ export class AddFormEtudiantComponent implements OnInit {
         adress_titeur: [''],
         ecole_anter: [''],
         image: [''],
-        idCls: ['', Validators.required],
-        idSchool: ['', Validators.required],
+        // idCls: ['', Validators.required],
+        // idSchool: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', Validators.required],
       },
@@ -104,22 +104,6 @@ export class AddFormEtudiantComponent implements OnInit {
     const confirmPassword = group.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { passwordsMismatch: true };
   }
-
-  // onSubmit(): void {
-  //   if (this.studentForm.valid) {
-  //     // Exclure `confirmPassword` avant d'envoyer les données au serveur
-  //     const { confirmPassword, ...studentData } = this.studentForm.value;
-  //     this.http.post('http://localhost:3000/api/etudiants', studentData).subscribe({
-  //       next: (response) => {
-  //         console.log('Étudiant ajouté avec succès:', response);
-  //         this.router.navigate(['/back-office/etudiant']);
-  //       },
-  //       error: (error) => console.error('Erreur lors de l\'ajout de l\'étudiant:', error),
-  //     });
-  //   } else {
-  //     console.warn('Formulaire invalide:', this.studentForm.value);
-  //   }
-  // }
 
   onSubmit(): void {
     if (this.studentForm.valid) {

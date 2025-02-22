@@ -3,13 +3,13 @@
     <div class="logo"></div>
       <div class="listmenu">
         <div class="list">
-          <p [routerLink]="['/front-office/client', client.matricule, 'profil']">Profile</p>
+          <p [routerLink]="['/front-office/client', client?.idEdt, 'profil']">Profile</p>
         </div>
         <div class="list">
-          <p [routerLink]="['/front-office/client', client.matricule, 'ecolage']">Ecolages</p>
+          <p [routerLink]="['/front-office/client', client?.idEdt, 'ecolage']">Ecolages</p>
         </div>
         <div class="list">
-          <p [routerLink]="['/front-office/client', client.matricule, 'note']">Notes</p>
+          <p [routerLink]="['/front-office/client', client?.idEdt, 'note']">Notes</p>
         </div>
       </div>
   </div>

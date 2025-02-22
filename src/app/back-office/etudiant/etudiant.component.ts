@@ -6,8 +6,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AnneescolaireComponent } from '../anneescolaire/anneescolaire.component';
+import { StudentIdDialogComponent } from '../student-id-dialog/student-id-dialog.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { StudentIdEDialogComponent } from '../student-id-e-dialog/student-id-e-dialog.component';
+
 
 @Component({
   selector: 'app-etudiant',
@@ -19,13 +24,16 @@ import { AnneescolaireComponent } from '../anneescolaire/anneescolaire.component
     MatIconModule,
     RouterModule,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   templateUrl: './etudiant.component.html',
   styleUrls: ['./etudiant.component.css'],
 })
 export class EtudiantComponent implements OnInit {
-  displayedColumns: string[] = ['matricule', 'nom', 'prenom', 'classe', 'anneeScolaire', 'actions'];
+  displayedColumns: string[] = ['matricule','numero', 'nom', 'prenom', 'actions'];
   dataSource: MatTableDataSource<Etudiant> = new MatTableDataSource<Etudiant>([]);
   data: any[] = [];
   errorMessage: string | null = null;
@@ -56,7 +64,7 @@ export class EtudiantComponent implements OnInit {
     this.loadYearsSchools();
 
     const id = localStorage.getItem('userData');
-    console.log("Utilisateur récupéré du localStorage :", id);
+    // console.log("Utilisateur récupéré du localStorage :", id);
     
     if (id) {
       this.loadClasses(id);
@@ -70,13 +78,16 @@ export class EtudiantComponent implements OnInit {
       const of = ` sur ${length}`;
       return `${page * pageSize + 1} - ${Math.min((page + 1) * pageSize, length)}${of}`;
     };
+    this.dataSource.filterPredicate = (data: Etudiant, filter: string): boolean => {
+      return data.matricule.toString().toLowerCase().includes(filter);
+    };
   }
 
   loadYearsSchools(): void {
     this.http.get<{ data: { idSchool: number; annee_scolaire: string }[] }>('http://localhost:3000/api/years-school').subscribe({
       next: (response) => {
         this.yearsSchools = response.data;
-        console.log("Années scolaires chargées : ", this.yearsSchools);
+        // console.log("Années scolaires chargées : ", this.yearsSchools);
       },
       error: () => {
         this.errorMessage = 'Impossible de charger les années scolaires.';
@@ -84,19 +95,40 @@ export class EtudiantComponent implements OnInit {
     });
   }
 
+  displayId(id: number): void {
+    this.dialog.open(StudentIdDialogComponent, {
+      width: '300px',
+      data: { id }
+    });
+  }
+
+  displayIdE(id: number): void {
+    this.dialog.open(StudentIdEDialogComponent, {
+      width: '300px',
+      data: { id }
+    });
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   loadClasses(id: string): void {
     this.http.get<any[]>('http://localhost:3000/api/etudiants').subscribe({
       next: (response) => {
-        console.log('Réponse API pour les étudiants:', response);
+        // console.log('Réponse API pour les étudiants:', response);
   
         const userData = JSON.parse(id); 
         const userId = userData.idUser;
   
-        console.log('ID Utilisateur de localStorage:', userId);
+        // console.log('ID Utilisateur de localStorage:', userId);
   
         const filteredData = response.filter(student => student.idUser === userId);
   
-        console.log('Étudiants filtrés :', filteredData);
+        // console.log('Étudiants filtrés :', filteredData);
   
         this.dataSource.data = this.mapData(filteredData, this.yearsSchools);
       },
@@ -114,24 +146,25 @@ export class EtudiantComponent implements OnInit {
         matricule: etudiant.idEdt,
         nom: etudiant.name,
         prenom: etudiant.surname,
+        numero: etudiant.matricule,
         classe: etudiant.classe || 'Non spécifié',
         anneeScolaire: anneeScolaire,
       };
     });
   }
 
-  addElement() {
-    const newElement: Etudiant = {
-      matricule: this.dataSource.data.length + 1,
-      nom: 'Nom',
-      prenom: 'Prénom',
-      classe: 'Classe A',
-      anneeScolaire: '2023-2024',
-    };
+  // addElement() {
+  //   const newElement: Etudiant = {
+  //     matricule: this.dataSource.data.length + 1,
+  //     nom: 'Nom',
+  //     prenom: 'Prénom',
+  //     classe: 'Classe A',
+  //     anneeScolaire: '2023-2024',
+  //   };
 
-    this.dataSource.data = [...this.dataSource.data, newElement];
-    this.updatePaginator();
-  }
+  //   this.dataSource.data = [...this.dataSource.data, newElement];
+  //   this.updatePaginator();
+  // }
 
   deleteElement(matricule: number) {
     this.dataSource.data = this.dataSource.data.filter((student) => student.matricule !== matricule);
@@ -149,6 +182,7 @@ export class EtudiantComponent implements OnInit {
 
 export interface Etudiant {
   matricule: number;
+  numero: number;
   nom: string;
   prenom: string;
   classe: string;

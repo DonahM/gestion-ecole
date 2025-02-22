@@ -15,9 +15,9 @@
             <th>Nom et prénom</th>
             <th>Note</th>
             <th>Coefficient</th>
-            <th>ID Matière</th>
-            <th>ID Semestre</th>
-            <th>ID Année Scolaire</th>
+            <th>Matière</th>
+            <th>Semestre</th>
+            <th>Année Scolaire</th>
           </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
                 <mat-icon [routerLink]="['/back-office/etudiant/profilEtudiant', student.idEdt]">visibility</mat-icon>
               </button>
             </td>
-            <td>{{ student.matricule }}</td>
+            <td>{{ student.idEdt }}</td>
             <td>{{ student.name }}</td>
             <td><input id="note" formControlName="note" type="text" /></td>
             <td><input id="coefficient" formControlName="coefficient" type="text" /></td>

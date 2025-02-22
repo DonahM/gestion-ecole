@@ -15,9 +15,10 @@ export class ProfilComponent implements OnInit  {
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit(): void {
-    const matricule = this.route.parent?.snapshot.paramMap.get('matricule');  // Récupère le paramètre 'matricule' du composant parent
-    if (matricule) {
-      this.http.get(`http://localhost:3000/api/etudiants/matricule/${matricule}`).subscribe({
+    const idEdt = this.route.parent?.snapshot.paramMap.get('idEdt');  // Récupère le paramètre 'idEdt' du composant parent
+    // console.log( "test64646: ", idEdt)
+    if (idEdt) {
+      this.http.get(`http://localhost:3000/api/etudiants/id/${idEdt}`).subscribe({
         next: (data: any) => {
           if (Array.isArray(data) && data.length > 0) {
             this.client = data[0];

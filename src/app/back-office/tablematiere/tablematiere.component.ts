@@ -21,7 +21,7 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./tablematiere.component.css']
 })
 export class TablematiereComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'idEdt', 'idSchool', 'actions'];
+  displayedColumns: string[] = ['name','idSchool', 'actions'];
   dataSource: MatTableDataSource<Matiere> = new MatTableDataSource<Matiere>([]);
   errorMessage: string | null = null;
   apiUrl: string = 'http://localhost:3000/api/matieres'; 

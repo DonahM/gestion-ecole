@@ -46,7 +46,7 @@ export class EcolageComponent implements OnInit {
         if (Array.isArray(data.ecolages)) {
           const ecolagesWithYears = data.ecolages.map((ecolage) => {
             const anneeScolaire = ecolage.years_schools ? ecolage.years_schools.annee_scolaire : 'Non spécifiée';
-            console.log("test345: ", anneeScolaire)
+            // console.log("test345: ", anneeScolaire)
             return { ...ecolage, annee_scolaire: anneeScolaire };
           });
 
